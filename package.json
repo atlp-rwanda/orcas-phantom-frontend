@@ -1,0 +1,23 @@
+{
+  "name": "orcas-phantom-frontend",
+  "version": "1.0.0",
+  "description": "Phantom is a web application that allows passengers to track bus location and movements around Kigali",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atlp-rwanda/orcas-phantom-frontend.git"
+  },
+  "author": "the-orcas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/atlp-rwanda/orcas-phantom-frontend/issues"
+  },
+  "homepage": "https://github.com/atlp-rwanda/orcas-phantom-frontend#readme",
+  "devDependencies": {
+    "jest": "^26.4.2",
+    "sinon": "^9.0.3"
+  }
+}
