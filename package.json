@@ -3,17 +3,20 @@
   "version": "1.0.0",
   "description": "Phantom is a web application that allows passengers to track bus location and movements around Kigali",
   "main": "index.js",
-
   "jest": {
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
-      "\\.(css|less)$": "<rootDir>/__mocks__/cssMock.js"
+      "\\.(css|less)$": "identity-obj-proxy"
     },
-    
-    "moduleFileExtensions": ["js", "jsx"],
-    "moduleDirectories": ["node_modules", "src"]
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ]
   },
-
   "scripts": {
     "test": "jest ./src/test/"
   },
@@ -35,6 +38,7 @@
     "@babel/polyfill": "^7.11.5",
     "@babel/preset-env": "^7.11.5",
     "babel-jest": "^26.3.0",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^26.4.2",
     "nodemon": "^2.0.4",
     "sinon": "^9.0.3"
