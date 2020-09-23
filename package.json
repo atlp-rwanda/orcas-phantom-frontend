@@ -1,0 +1,52 @@
+{
+  "name": "orcas-phantom-frontend",
+  "version": "1.0.0",
+  "description": "Phantom is a web application that allows passengers to track bus location and movements around Kigali",
+  "main": "src/index.js",
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|less)$": "identity-obj-proxy"
+    },
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "<rootDir>/config/webpack/test.js"
+    ]
+  },
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage --colors"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atlp-rwanda/orcas-phantom-frontend.git"
+  },
+  "author": "the-orcas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/atlp-rwanda/orcas-phantom-frontend/issues"
+  },
+  "homepage": "https://github.com/atlp-rwanda/orcas-phantom-frontend#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.11.6",
+    "@babel/core": "^7.11.6",
+    "@babel/node": "^7.10.5",
+    "@babel/plugin-transform-runtime": "^7.11.5",
+    "@babel/polyfill": "^7.11.5",
+    "@babel/preset-env": "^7.11.5",
+    "babel-jest": "^26.3.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^26.4.2",
+    "nodemon": "^2.0.4",
+    "sinon": "^9.0.3"
+  }
+}
