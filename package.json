@@ -25,10 +25,10 @@
 		"start": "webpack --mode development",
 		"dev": "webpack-dev-server --mode development --open",
 		"build": "webpack --mode production",
-		"lint": "eslint **/*.js --ignore-pattern node_modules/",
 		"test": "jest",
 		"test:watch": "jest --watch",
-		"test:coverage": "jest --coverage --colors"
+		"test:coverage": "jest --coverage --colors",
+		"lint": "eslint --ext .jsx --ext .js ."
 	},
 	"repository": {
 		"type": "git",

@@ -2,10 +2,12 @@
 	"parser": "babel-eslint",
 	"env": {
 		"browser": true,
-		"es6": true
+		"es6": true,
+		"node": true
 	},
 	"extends": [
-		"plugin:react/recommended"
+		"eslint:recommended",
+    	"plugin:react/recommended"
 	],
 	"globals": {
 		"Atomics": "readonly",
@@ -21,6 +23,7 @@
 	"plugins": [
 		"react"
 	],
+
 	"rules": {
 		"indent": ["error", 2],
 		"react/jsx-filename-extension": [
@@ -34,6 +37,7 @@
 		],
 		"react/no-array-index-key": 0,
 		"jsx-a11y/anchor-is-valid": 0
+		
 	},
 	"settings": {
 		"react": {
