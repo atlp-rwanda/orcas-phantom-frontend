@@ -22,7 +22,7 @@
 		]
 	},
 	"scripts": {
-		"start": "webpack --mode development",
+		"start": "node server",
 		"dev": "webpack-dev-server --mode development --open",
 		"build": "webpack --mode production",
 		"test": "jest",
@@ -43,6 +43,7 @@
 	},
 	"homepage": "https://github.com/atlp-rwanda/orcas-phantom-frontend#readme",
 	"dependencies": {
+		"express": "^4.17.1",
 		"react": "^16.13.1",
 		"react-dom": "^16.13.1",
 		"react-router-dom": "^5.2.0",

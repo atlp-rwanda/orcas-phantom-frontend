@@ -9,7 +9,6 @@ const Nav = () => {
     <BrowserRouter>
       <div>
         <div className="navbar">
-<<<<<<< HEAD
           <ul>
             <li>
               <NavLink to="/">Home</NavLink>
@@ -18,16 +17,6 @@ const Nav = () => {
               <NavLink to="/about">About</NavLink>
             </li>
           </ul>
-=======
-        <ul>
-          <li>
-            <NavLink to="/">Home</NavLink>
-          </li>
-          <li>
-            <NavLink to="/about">About</NavLink>
-          </li>
-        </ul>
->>>>>>> a56d48e... eslint fixed, and navbar added css, change directory of app.css
         </div>
         <div className="cmpnt">
           <Route exact path="/" component={App} />
