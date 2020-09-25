@@ -1,13 +1,18 @@
-import path from 'path';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-
+const path = require ('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+require('dotenv').config();
 
 module.exports = {
   entry: path.join(__dirname, "src", "index.js"),
   output: {
     path: path.join(__dirname, "build"),
     filename: "bundle.js",
+  },
+  devServer:{
+    contentBase:path.join(__dirname, "build"),
+    compress:true,
+    port:process.env.PORT
   },
   module: {
     rules: [
