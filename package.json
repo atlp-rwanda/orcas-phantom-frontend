@@ -1,52 +1,79 @@
 {
-  "name": "orcas-phantom-frontend",
-  "version": "1.0.0",
-  "description": "Phantom is a web application that allows passengers to track bus location and movements around Kigali",
-  "main": "src/index.js",
-  "jest": {
-    "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
-      "\\.(css|less)$": "identity-obj-proxy"
-    },
-    "moduleFileExtensions": [
-      "js",
-      "jsx"
-    ],
-    "moduleDirectories": [
-      "node_modules",
-      "src"
-    ],
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "<rootDir>/config/webpack/test.js"
-    ]
-  },
-  "scripts": {
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage --colors"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/atlp-rwanda/orcas-phantom-frontend.git"
-  },
-  "author": "the-orcas",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/atlp-rwanda/orcas-phantom-frontend/issues"
-  },
-  "homepage": "https://github.com/atlp-rwanda/orcas-phantom-frontend#readme",
-  "devDependencies": {
-    "@babel/cli": "^7.11.6",
-    "@babel/core": "^7.11.6",
-    "@babel/node": "^7.10.5",
-    "@babel/plugin-transform-runtime": "^7.11.5",
-    "@babel/polyfill": "^7.11.5",
-    "@babel/preset-env": "^7.11.5",
-    "babel-jest": "^26.3.0",
-    "identity-obj-proxy": "^3.0.0",
-    "jest": "^26.4.2",
-    "nodemon": "^2.0.4",
-    "sinon": "^9.0.3"
-  }
+	"name": "orcas-phantom-frontend",
+	"version": "1.0.0",
+	"description": "Phantom is a web application that allows passengers to track bus location and movements around Kigali",
+	"main": "index.js",
+	"jest": {
+		"moduleNameMapper": {
+			"\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+			"\\.(css|less)$": "identity-obj-proxy"
+		},
+		"moduleFileExtensions": [
+			"js",
+			"jsx"
+		],
+		"moduleDirectories": [
+			"node_modules",
+			"src"
+		],
+		"testPathIgnorePatterns": [
+			"/node_modules/",
+			"<rootDir>/config/webpack/test.js"
+		]
+	},
+	"scripts": {
+		"start": "webpack --mode development",
+		"dev": "webpack-dev-server --mode development --open",
+		"build": "webpack --mode production",
+		"test": "jest",
+		"test:watch": "jest --watch",
+		"test:coverage": "jest --coverage --colors",
+		"lint": "eslint --ext .jsx --ext .js .",
+		"test:coveralls": "jest --coverage && coveralls < coverage/lcov.info"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/atlp-rwanda/orcas-phantom-frontend.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/atlp-rwanda/orcas-phantom-frontend/issues"
+	},
+	"homepage": "https://github.com/atlp-rwanda/orcas-phantom-frontend#readme",
+	"dependencies": {
+		"react": "^16.13.1",
+		"react-dom": "^16.13.1",
+		"react-router-dom": "^5.2.0",
+		"react-scripts": "3.4.3"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.11.6",
+		"@babel/preset-env": "^7.11.5",
+		"@babel/preset-react": "^7.10.4",
+		"babel-loader": "^8.1.0",
+		"css-loader": "^4.3.0",
+		"eslint": "^7.9.0",
+		"eslint-loader": "^4.0.2",
+		"eslint-plugin-react": "^7.21.0",
+		"file-loader": "^6.1.0",
+		"html-webpack-plugin": "^4.5.0",
+		"mini-css-extract-plugin": "^0.11.2",
+		"node-sass": "^4.14.1",
+		"prettier": "^2.1.2",
+		"sass-loader": "^10.0.2",
+		"webpack": "^4.44.2",
+		"webpack-cli": "^3.3.12",
+		"webpack-dev-server": "^3.11.0",
+		"babel-jest": "^26.3.0",
+		"identity-obj-proxy": "^3.0.0",
+		"jest": "^26.4.2",
+		"nodemon": "^2.0.4",
+		"sinon": "^9.0.3",
+		"@babel/cli": "^7.11.6",
+		"@babel/node": "^7.10.5",
+		"@babel/plugin-transform-runtime": "^7.11.5",
+		"@babel/polyfill": "^7.11.5"
+	}
 }
