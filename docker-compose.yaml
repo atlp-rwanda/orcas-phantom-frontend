@@ -1,0 +1,17 @@
+version: "3.7"
+
+services: 
+    orcas-frontend:
+        container_name: orcas-frontend
+        build: 
+            context: .
+            dockerfile: Dockerfile
+        ports: 
+            - "8080:8080"
+        restart: unless-stopped
+        environment:
+            CHOKIDAR_USERPOLLING: "true"
+        env_file: ./.env
+        volumes: 
+            - ./node_modules:/usr/src/frontend_app/node_modules
+            - .:/usr/src/frontend_app
