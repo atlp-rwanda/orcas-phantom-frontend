@@ -1,7 +1,7 @@
-import React from "react";
-import { Route, NavLink, BrowserRouter } from "react-router-dom";
-import About from "./About";
-import App from "./app";
+import React from 'react';
+import { Route, NavLink, BrowserRouter } from 'react-router-dom';
+import About from './About';
+import App from './app';
 
 
 const Nav = () => {
