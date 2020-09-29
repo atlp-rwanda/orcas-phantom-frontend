@@ -58,10 +58,13 @@
 		"@babel/preset-env": "^7.11.5",
 		"@babel/preset-react": "^7.10.4",
 		"@testing-library/jest-dom": "^5.11.4",
+		"babel-eslint": "^10.1.0",
 		"babel-jest": "^26.3.0",
 		"babel-loader": "^8.1.0",
+		"chokidar": "^3.4.2",
 		"coveralls": "^3.1.0",
 		"css-loader": "^4.3.0",
+		"dotenv-webpack": "^3.0.0",
 		"eslint": "^7.9.0",
 		"eslint-loader": "^4.0.2",
 		"eslint-plugin-jest-dom": "^3.2.3",
@@ -78,9 +81,6 @@
 		"sinon": "^9.0.3",
 		"webpack": "^4.44.2",
 		"webpack-cli": "^3.3.12",
-		"webpack-dev-server": "^3.11.0",
-		
-		"chokidar": "^3.4.2",
-		"dotenv-webpack": "^3.0.0"
+		"webpack-dev-server": "^3.11.0"
 	}
 }
