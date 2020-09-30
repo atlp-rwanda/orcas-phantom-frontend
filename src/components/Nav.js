@@ -8,18 +8,19 @@ const Nav = () => {
   return (
     <BrowserRouter>
       <div>
-        <ul>
-          <li>
-            <NavLink to='/'>Home</NavLink>
-          </li>
-          <li>
-            <NavLink to='/about'>About</NavLink>
-          </li>
-        </ul>
-
-        <div>
-          <Route exact path='/' component={App} />
-          <Route path='/about' component={About} />
+        <div className="navbar">
+          <ul>
+            <li>
+              <NavLink to="/">Home</NavLink>
+            </li>
+            <li>
+              <NavLink to="/about">About</NavLink>
+            </li>
+          </ul>
+        </div>
+        <div className="cmpnt">
+          <Route exact path="/" component={App} />
+          <Route path="/about" component={About} />
         </div>
       </div>
     </BrowserRouter>

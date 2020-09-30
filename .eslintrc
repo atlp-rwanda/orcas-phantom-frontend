@@ -26,6 +26,7 @@
 
 	"rules": {
 		"indent": ["error", 2],
+		"eol-last": 2,
 		"react/jsx-filename-extension": [
 			1,
 			{
@@ -43,5 +44,20 @@
 		"react": {
 			"version": "detect"
 		}
-	}
+	},
+	"overrides": [
+		{
+		  "files": [
+			"**/*.test.js",
+			"**/*.test.jsx"
+		  ],
+		  "env": {
+			"jest": true
+		  }
+		}
+	  ]
+	
+
 }
+	
+
