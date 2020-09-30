@@ -1,10 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Nav from './components/Nav';
+import App from './components/App';
 
-const app = document.createElement('app');
-ReactDOM.render(<Nav />, app);
+ReactDOM.render(<App />, document.getElementById('app') || document.createElement('div'));
 
-const sampleFunction = (a, b) => a + b;
-
-export default sampleFunction;
