@@ -82,66 +82,66 @@ class LandingPage extends React.Component {
 
             <div className="form-wrapper">  
               <form onSubmit={this.handleClick}>
-              <div>
-                <div className="direction-icon">
-                  <img src={directionIcon} />
-                </div>
-                <div className="input-fields-wrapper">
-                  <div id="origin">
-                    { this.state.isSubmitted ?
-                      <input
-                        data-testid="origin"
-                        type="text"
-                        name="origin"
-                        value={this.state.origin}
-                        className="search-fields form-control text-center"
-                        placeholder="Origin Bus Stop..."
-                        disabled
-                      />
-                      : 
-                      <input
-                        data-testid="origin"
-                        type="text"
-                        name="origin"
-                        value={this.state.origin}
-                        onChange={this.handleChange}
-                        className="search-fields form-control"
-                        placeholder="Origin Bus Stop..."
-                        required
-                      />
-                    }
+                <div>
+                  <div className="direction-icon">
+                    <img src={directionIcon} />
                   </div>
-                  <div id="destination">
-                    { this.state.isSubmitted ?
-                      <input
-                        data-testid="destination"
-                        type="text"
-                        name="destination"
-                        value={this.state.destination}
-                        className="search-fields form-control text-center"
-                        placeholder="Destination Bus Stop..."
-                        disabled
-                      />
-                      :
-                      <input
-                        data-testid="destination"
-                        type="text"
-                        name="destination"
-                        value={this.state.destination}
-                        onChange={this.handleChange}
-                        className="search-fields form-control"
-                        placeholder="Destination Bus Stop..."
-                        required
-                      />
-                    }
+                  <div className="input-fields-wrapper">
+                    <div id="origin">
+                      { this.state.isSubmitted ?
+                        <input
+                          data-testid="origin"
+                          type="text"
+                          name="origin"
+                          value={this.state.origin}
+                          className="search-fields form-control text-center"
+                          placeholder="Origin Bus Stop..."
+                          disabled
+                        />
+                        : 
+                        <input
+                          data-testid="origin"
+                          type="text"
+                          name="origin"
+                          value={this.state.origin}
+                          onChange={this.handleChange}
+                          className="search-fields form-control"
+                          placeholder="Origin Bus Stop..."
+                          required
+                        />
+                      }
+                    </div>
+                    <div id="destination">
+                      { this.state.isSubmitted ?
+                        <input
+                          data-testid="destination"
+                          type="text"
+                          name="destination"
+                          value={this.state.destination}
+                          className="search-fields form-control text-center"
+                          placeholder="Destination Bus Stop..."
+                          disabled
+                        />
+                        :
+                        <input
+                          data-testid="destination"
+                          type="text"
+                          name="destination"
+                          value={this.state.destination}
+                          onChange={this.handleChange}
+                          className="search-fields form-control"
+                          placeholder="Destination Bus Stop..."
+                          required
+                        />
+                      }
+                    </div>
                   </div>
                 </div>
-                </div>
-              <button
-                type="submit"
-                data-testid="search-btn"
-                name="search-btn"
-                className="btn btn-info btn-block search-btn">Search</button>
+                <button
+                  type="submit"
+                  data-testid="search-btn"
+                  name="search-btn"
+                  className="btn btn-info btn-block search-btn">Search</button>
               </form>
             </div>
           </div>

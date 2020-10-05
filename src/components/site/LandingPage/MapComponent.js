@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+
+import React from 'react';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 
 
 const MapComponent = props => {
-  const [position, setPosition] = useState([props.lat, props.lng]);
+  // eslint-disable-next-line react/prop-types
+  const position = [props.lat, props.lng];
+
   
   return (
     <div data-testid="map-component">
