@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const dotEnv = require('dotenv-webpack');
+const { SourceMapDevToolPlugin } = require("webpack");
 
 module.exports = {
   entry: path.join(__dirname, 'src', 'index.js'),
@@ -15,7 +16,7 @@ module.exports = {
         test: /.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: ['babel-loader', 'eslint-loader'],
+          loader: 'babel-loader'
         },
       },
       {
@@ -23,15 +24,25 @@ module.exports = {
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
       },
       {
+        test: /.html$/,
+        use: {
+          loader: 'html-loader'
+        }
+      },
+      {
         test: /.(jpg|jpeg|png|gif|mp3|svg)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[path][name]-[hash:8].[ext]',
-            },
+        use: {
+          loader: 'file-loader',
+          options: {
+            name: '[name].[hash].[ext]',
+            outputPath: 'assets'
           },
-        ],
+        },
+      },
+      {
+        test: /\.js$/,
+        enforce: 'pre',
+        use: ['source-map-loader'],
       },
     ],
   },
@@ -48,7 +59,10 @@ module.exports = {
       path: './.env',
       allowEmptyValues: false,
       systemvars: true
-    })
+    }),
+    new SourceMapDevToolPlugin({
+      filename: "[file].map"
+    }),
   ],
   devServer: { 
     port: 8080
