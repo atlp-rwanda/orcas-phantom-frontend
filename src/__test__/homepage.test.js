@@ -1,15 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import Enzyme from 'enzyme';
-// import Adapter from 'enzyme-adapter-react-16';
 import '@testing-library/jest-dom/extend-expect';
 import { render, screen, fireEvent, cleanup } from '@testing-library/react';
 import App from '../App';
 import MapComponent from '../pages/LandingPage/MapComponent';
+import BusInfo from 'pages/LandingPage/BusInfo';
 
 afterEach(cleanup);
-
-// Enzyme.configure({ adapter: new Adapter() });
 
 describe("Tests if all components are being rendered and work as expected", () => {
   it(">>>> Whole App component should render correctly", () => {
@@ -18,38 +15,53 @@ describe("Tests if all components are being rendered and work as expected", () =
     ReactDOM.unmountComponentAtNode(div);
   });
 
-
-
   it(">>>> Map renders correctly", () => {
     const { getByTestId } = render(<MapComponent lat={-1.9470658} lng={30.0915372}></MapComponent>);
     expect(getByTestId('map-component')).toBeValid();
   });
 
-  it(">>>> Should not display bus details without clicking on search", () => {
-    const { getByTestId } = render(<App />);
+  it(">>>> Should not display bus details without origin and destination set", () => {
+    render(<App />);
     expect(screen.getByTestId('bus-info')).toBeEmptyDOMElement();
   });
 
-  it(">>>> Clear button should remove all data", () => {
+  it(">>>> Input boxes are working", () => {
     const { getByTestId } = render(<App />);
 
-    expect(getByTestId('origin').value).toMatch("");
-    fireEvent.change(getByTestId('origin'), {target: {value: 'one'}});
-    expect(getByTestId('origin').value).toMatch("one");
+    fireEvent.change(getByTestId('origin'), {target: {value: 'Remera 1'}});
+    expect(getByTestId('origin').value).toMatch("Remera 1");
 
-    expect(getByTestId('destination').value).toMatch("");
-    fireEvent.change(getByTestId('destination'), {target: {value: 'two'}});
-    expect(getByTestId('destination').value).toMatch("two");
+    fireEvent.change(getByTestId('destination'), {target: {value: 'Kacyiru'}});
+    expect(getByTestId('destination').value).toMatch('Kacyiru');
 
-    fireEvent.click(getByTestId("search-btn"));
-    fireEvent.click(getByTestId("cancel-btn"));
-    expect(screen.getByTestId('bus-info')).toBeEmptyDOMElement();
+    fireEvent.change(getByTestId('origin'), {target: {value: ''}});
+    expect(getByTestId('origin').value).toMatch('');
+
+    fireEvent.change(getByTestId('destination'), {target: {value: ''}});
+    expect(getByTestId('destination').value).toMatch('');
+
   });
 
-  it(">>>> Navbar can be toggled", () => {
+  it(">>>> Navigation bar can be toggled", () => {
     const { getByTestId } = render(<App />);
 
     fireEvent.click(getByTestId('menu-icon'));
+
+    fireEvent.click(getByTestId('navbar-hide-icon'));
+  });
+
+  it(">>>> Search Panel can be toggled", () => {
+    const { getByTestId } = render(<App />);
+
+    fireEvent.click(getByTestId('back-btn-search'));
+
+    fireEvent.click(getByTestId('search-icon'));
+  });
+
+  it(">>>> Bus info toast is rendered correctly", () => {
+    const { getByTestId } = render(<BusInfo data={{origin: "test"}}/>);
+
+    expect(getByTestId('bus-info-toast')).toBeValid();
   });
 });
 
