@@ -13,6 +13,10 @@
     width: 100%;
 }
 
+a:hover , link:hover {
+    text-decoration: none;
+}
+
 .navbar {
     display: flex;
     align-items: center;

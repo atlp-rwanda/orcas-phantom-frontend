@@ -67,7 +67,8 @@ describe('check whole App', () => {
     shallow(<Nav />);
   });
   it("it has Admin Page", () => {
-    const wrapper = shallow(<AdminPage />);
+    const mProps = { history: { push: jest.fn() } };
+    const wrapper = shallow(<AdminPage {...mProps}/>);
     const welcome = <h1>Hi <span role='img' aria-label="👋">👋</span> Admin</h1>;
     expect(wrapper.contains(welcome)).toEqual(true);
   });
@@ -88,7 +89,6 @@ describe('check whole App', () => {
     shallow(<Message message='' status=''/>);
   });
   it("Admin login Page has Nav layout we have to cover whole lines of code ", () => {
-    shallow(<NavAdmin />);
+    shallow(<NavAdmin checkUser='/AdminLogin'/>);
   });
 });
-

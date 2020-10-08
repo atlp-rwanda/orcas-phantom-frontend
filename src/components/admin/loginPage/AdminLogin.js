@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Message from './message';
 import propTypes from 'prop-types';
-import firebase from '../../../utilities/firebaseFile';
+import auth from '../../../utilities/firebaseFile';
 import validatePassword from '../../../utilities/validate-input';
 import NavAdmin from '../NavAdmin';
 import './css/AdminLogin.css';
@@ -18,14 +18,17 @@ class AdminLogin extends Component {
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
-  onChange (e){ return this.setState({ [e.target.name]: e.target.value});}
+ 
+  onChange (e){ 
+    return this.setState({ [e.target.name]: e.target.value});
+  }
   onSubmit (e){
     e.preventDefault();
     let authed = this;
     if (validatePassword(this.state.password)) {
-      firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then(function () {
+      auth.signInWithEmailAndPassword(this.state.email, this.state.password).then(function () {
         authed.setState({ status: 'accepted1', message: 'authenticated👌' });
-        setTimeout(function () {authed.setState({ status: 'accepted', message: '', email: '', password: '' }); authed.props.history.push('/AdminPage');}, 3000); })
+        setTimeout(function () {authed.setState({ status: 'accepted', message: '', email: '', password: ''}); authed.props.history.push('/AdminPage');}, 3000); })
         .catch(() => { authed.setState({ status: 'unauthorised', message: 'unauthorized👎' }); setTimeout(function () {authed.setState({ status: '', message: '', email: '', password: '' });
         }.bind(authed), 3000); });
       this.setState({ email: '', password: '', status: 'submitted' });
