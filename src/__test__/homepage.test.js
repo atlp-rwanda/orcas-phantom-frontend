@@ -5,7 +5,7 @@ import Adapter from 'enzyme-adapter-react-16';
 import '@testing-library/jest-dom/extend-expect';
 import { render, screen, fireEvent, cleanup } from '@testing-library/react';
 import App, { Provider, stateForTest } from '../components/App';
-import Nav from '../components/site/Nav';
+//import Nav from '../components/site/Nav';
 import MapComponent from '../components/site/LandingPage/MapComponent';
 import LandingPage from '../components/site/LandingPage/LandingPage';
 
