@@ -9,15 +9,20 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'build'),
     filename: 'bundle.js',
+    publicPath :'/'
   },
   module: {
     rules: [
       {
         test: /.(js|jsx)$/,
         exclude: /node_modules/,
-        use: {
+        use: [{
           loader: 'babel-loader'
         },
+        {
+          loader:'eslint-loader'
+        }],
+        
       },
       {
         test: /.(css|scss)$/,
@@ -48,7 +53,6 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      filename: 'index.html',
       template: path.join(__dirname, 'src', 'index.html'),
     }),
     new MiniCssExtractPlugin({
@@ -65,6 +69,7 @@ module.exports = {
     }),
   ],
   devServer: { 
-    port: 8080
+    port: 8080,
+    historyApiFallback:true
   }
 };

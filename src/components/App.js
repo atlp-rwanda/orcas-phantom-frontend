@@ -1,5 +1,5 @@
 import React from 'react';
-import Nav from './site/Nav';
+import SideMenu from './site/sideMenu';
 import '../css/App.css';
 
 export const { Provider, Consumer } = React.createContext();
@@ -47,10 +47,9 @@ class App extends React.Component {
   render() {
     return (
       <Provider value={this.state}>
-        <Nav />
+        <SideMenu />
       </Provider>
     );
   }
 }
-
 export default App;

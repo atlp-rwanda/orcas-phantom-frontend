@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Ubuntu", "sans-serif";
+}
+
+
+.navbar {
+    box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28);
+    padding: 15px 10px 10px 10px;
+    background-color: rgb(39, 110, 241);
+}
+.navbar ul {
+    display: flex;
+}
+.navbar ul li {
+    padding-left: 8px;
+    list-style: none;
+}
+.navbar ul li a {
+    color: #000;
+    font-size: 17px;
+    text-decoration: none; 
+    color: white;
+}
+#admin{
+    border: 1px solid white;
+    padding: 2px;
+}
+#about{
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    margin-right: 5vw;
+}
+#logo{
+    margin-right: 50vw;
+    margin-left: 7vw;
+}
+.cmpnt{
+    padding:50px 15px 10px 15px;
+}
+
+.loginForm form{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+  }
+.button{
+      padding-top: 5px;
+      padding-bottom: 5px;
+      width:300px;
+      font-size: 20px;
+      color: white;
+      background-color: rgb(39, 110, 241);
+      border: none;
+      border-radius: 5px;
+      margin-top: 10px;
+  }
+.loginForm h1{
+      text-align: center;
+      color: rgb(73, 66, 66);
+      font-weight: 300;
+      font-size: 20px;
+      padding: -5px;
+  }
+.input{
+    height:50px;
+    width:300px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    outline-style: none;
+    margin-bottom: 10px;
+    }
+.loginForm{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 50vw;
+        border-width: 3px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 8px;
+        
+    }
+#h1{
+        background-color: rgba(196, 196, 196, 0.5);
+        width: 20vw;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: -45px;
+        margin-bottom: 10vh;
+        padding-top: 40px;
+        padding-bottom: 10px;
+        border-radius: 0 0 20px 20px;
+        z-index: -1;
+    }
+#message{
+        margin-left: auto;
+        margin-right: auto;
+        background-color: rgb(39, 110, 241);
+        color: white;
+        height:50px;
+        width:300px;
+        text-align: center;
+        font-size: 15px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        display: none;
+    }
+#password{
+        margin-bottom: 40px;
+    }
