@@ -1,5 +1,6 @@
 import React from 'react'
-import { NavLink} from 'react-router-dom';
+import { Router, NavLink } from 'react-router-dom';
+import history from '../../browserHistory';
 import Styled from '@emotion/styled';
 
 
@@ -38,18 +39,20 @@ const Nav = () => {
   return (
     <div>
       <Navbar>
-        <h2><NavLink to="/"><Logo>Phantom Ride</Logo></NavLink></h2>
-        <Ul>
-          <Li>
-            <NavLink to="/Contact"><Span>Contact Us</Span></NavLink>
-          </Li>
-          <Li>
-            <NavLink to="/aboutPage"><Span>About Us</Span></NavLink>
-          </Li>
-          <Li>
-            <NavLink to="/faqs"><Span>FAQs</Span></NavLink>
-          </Li>
-        </Ul>
+        <Router history={history}>
+          <h2><NavLink to="/"><Logo>Phantom Ride</Logo></NavLink></h2>
+          <Ul>
+            <Li>
+              <NavLink to="/contact"><Span>Contact Us</Span></NavLink>
+            </Li>
+            <Li>
+              <NavLink to="/about"><Span>About Us</Span></NavLink>
+            </Li>
+            <Li>
+              <NavLink to="/faqs"><Span>FAQs</Span></NavLink>
+            </Li>
+          </Ul>
+        </Router>
       </Navbar>
     </div>
   );

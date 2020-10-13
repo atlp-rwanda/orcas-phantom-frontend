@@ -1,7 +1,7 @@
 import React from 'react';
 import Styled from '@emotion/styled';
-import  Nav from '../Nav';
-import Footer from '../Footer';
+import Nav from 'shared/components/Nav';
+import Footer from 'shared/components/Footer';
 
 
 const H1 = Styled.h1`
