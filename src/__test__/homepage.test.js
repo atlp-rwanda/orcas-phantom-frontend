@@ -1,17 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Enzyme from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+// import Enzyme from 'enzyme';
+// import Adapter from 'enzyme-adapter-react-16';
 import '@testing-library/jest-dom/extend-expect';
 import { render, screen, fireEvent, cleanup } from '@testing-library/react';
-import App, { Provider, stateForTest } from '../components/App';
-//import Nav from '../components/site/Nav';
-import MapComponent from '../components/site/LandingPage/MapComponent';
-import LandingPage from '../components/site/LandingPage/LandingPage';
+import App from '../App';
+import MapComponent from '../pages/LandingPage/MapComponent';
 
 afterEach(cleanup);
 
-Enzyme.configure({ adapter: new Adapter() });
+// Enzyme.configure({ adapter: new Adapter() });
 
 describe("Tests if all components are being rendered and work as expected", () => {
   it(">>>> Whole App component should render correctly", () => {
@@ -20,13 +18,7 @@ describe("Tests if all components are being rendered and work as expected", () =
     ReactDOM.unmountComponentAtNode(div);
   });
 
-  it(">>>> Landing page wrapper should render correctly", () => {
-    render(
-      <Provider value={stateForTest}>
-        <LandingPage />
-      </Provider>);
-    expect(screen.getByTestId('homepage')).toBeValid();
-  });
+
 
   it(">>>> Map renders correctly", () => {
     const { getByTestId } = render(<MapComponent lat={-1.9470658} lng={30.0915372}></MapComponent>);
@@ -34,18 +26,12 @@ describe("Tests if all components are being rendered and work as expected", () =
   });
 
   it(">>>> Should not display bus details without clicking on search", () => {
-    render(
-      <Provider value={stateForTest}>
-        <LandingPage />
-      </Provider>);
+    const { getByTestId } = render(<App />);
     expect(screen.getByTestId('bus-info')).toBeEmptyDOMElement();
   });
 
   it(">>>> Clear button should remove all data", () => {
-    const { getByTestId } = render(
-      <Provider value={stateForTest}>
-        <LandingPage />
-      </Provider>);
+    const { getByTestId } = render(<App />);
 
     expect(getByTestId('origin').value).toMatch("");
     fireEvent.change(getByTestId('origin'), {target: {value: 'one'}});
@@ -65,6 +51,5 @@ describe("Tests if all components are being rendered and work as expected", () =
 
     fireEvent.click(getByTestId('menu-icon'));
   });
-
 });
 

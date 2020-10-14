@@ -1,9 +1,9 @@
 import React from 'react';
-import locationIcon from  '../../../assets/images/placeholder.svg';
-import locationImage from '../../../assets/images/location.svg'
-import Styled from '@emotion/styled';
-import  Nav from '../Nav';
-import Footer from '../Footer';
+import Styled from '@emotion/styled'
+import locationIcon from  'App/assets/images/placeholder.svg';
+import locationImage from 'App/assets/images/location.svg';
+import Nav from 'shared/components/Nav';
+import Footer from 'shared/components/Footer';
 
 const H1= Styled.h1`
 text-align: center;
