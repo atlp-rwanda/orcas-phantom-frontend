@@ -30,3 +30,16 @@ a:hover , link:hover {
         width: 60%;
     }
 }
+.button{
+    width: 90%;
+    height: 40px;
+    border-radius: 10px;
+}
+.input{
+    width: 90%;
+    height: 50px;
+    border-radius: 10px;
+    background-color: #E8E9F1;
+    border-color: #276EF1;
+    padding: 1em;
+}
