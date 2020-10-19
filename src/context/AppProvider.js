@@ -2,12 +2,23 @@
 import React, { useState, createContext } from 'react';
 
 const store = {
-  lat: -1.9470658,
-  lng: 30.0915372,
+  coords: {
+    origin: {
+      lat: -1.9470658,
+      lng: 30.0915372
+    },
+    destination: {
+      lat: -1.9378777,
+      lng: 30.0609378
+    }
+  },
+  charCountOrigin: 0,
+  charCountDest: 0,
   origin: "",
   destination: "",
   isSubmitted: false,
-  isNavToggled: false
+  isNavToggled: false,
+  isSearchToggled: true
 }
 
 export const AppContext = createContext(store);

@@ -4,15 +4,70 @@
 }
 
 .sidebar {
-    flex-basis: 30%;
+}
+
+.logo {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}
+
+.navbar {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0;
+    list-style: none;
+    box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28);
+    padding: 1em;
+    height: 100vh;
+    width: 20%;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    background: white;
+    color: black;
+    z-index: 999999;
+}
+
+
+.navbar > div {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.navbar li a {
+    text-decoration: none;
+    font-size: 1.2em;
+    transition: all 0.3s ease-in-out;
+    color: black;
+}
+
+.navbar li a:hover {
+    color: #071B4A;
+}
+
+.back-btn {
+    position: absolute;
+    top: 1.65em;
+    left: 1.5em;
+    cursor: pointer;
+    opacity: 0.6;
 }
 
 #bus-details {
-    padding: 1em;
+    padding: 0px 1em 5em 1em;
 }
 
 #bus-map {
-    flex-basis: 70%;
+    margin: 0 auto;
+    width: 90%;
     height: auto;
 }
 
@@ -23,31 +78,69 @@
 .search-box {
     padding: 1em;
     padding-bottom: 2em;
-    background: #276EF1;
+    background: white;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
     row-gap: 2em;
+    height: 100%;
 }
 
 .sidebar-top {
+    position: relative;
     width: 100%;
     display: flex;
 }
 
+.sidebar-bottom {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #071B4A;
+    border-bottom: 1px solid #606980;
+    padding-bottom: 1em;
+    column-gap: 1em;
+}
+
+
 .logo-txt {
     flex-basis: 100%;
     font-size: large;
-    font-weight: bold;
+    font-weight: bolder;
     color: white;
     letter-spacing: 1px;
     text-align: center;
+    color: #071B4A;
+}
+
+.close-btn {
+    display: none;
 }
 
 .menu-icon {
+    z-index: 999999;
+    position: absolute;
+    right: 1em;
+    top: 1em;
+    cursor: pointer;
+}
+
+.search-icon {
+    z-index: 999999;
     position: absolute;
     cursor: pointer;
+    top: 1em;
+    left: 1em;
+}
+
+#back-btn-search {
+    cursor: pointer;
+    position: absolute;
+    right: 1em;
+    top: 0px;
+    opacity: 0.6;
 }
 
 .form-wrapper {
@@ -86,17 +179,19 @@
     cursor: pointer;
     font-size: 1.2em;
     position: absolute;
-    left: 27%;
-    top: 0.65em;
+    right: 1em;
+    top: 0px;
 }
 
 .time-remaining {
-    font-size: 2em;
+    font-size: 1.8em;
     letter-spacing: 1px;
+    color: skyblue;
 }
 
 .bus-detail {
-    opacity: 0.6;
+    font-size: small;
+    opacity: 0.7;
     letter-spacing: 1px;
     text-align: center;
 }
@@ -105,15 +200,14 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    width: 80%;
+    width: 100%;
     margin: 0 auto;
-    row-gap: 1.5em;
+    row-gap: 1em;
 }
 
 .bus-detail-wrapper .fa {
     justify-self: flex-start;
-    font-size: 2em;
-    margin-right: 1.5em;
+    font-size: 1.5em;
 }
 
 .bus-info {
@@ -124,7 +218,109 @@
     row-gap: 2em;
 }
 
+.bus-info-toast {
+    z-index: 99999;
+    position: absolute;
+    bottom: 7em;
+    left: 43%;
+    margin: 0 auto;
+    padding: 1.5em;
+    width: fit-content;
+    width: -moz-fit-content;
+    background: white;
+    box-shadow: 2px 2px 5px darkgray;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.bus-info-toast > div:first-child {
+    margin-right: 2em;
+}
+
 @media (max-width: 768px) {
+
+    .search-icon, #back-btn-search, .footer  {
+        display: none;
+    }
+
+    .logo {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+    }
+
+    .back-btn {
+        display: none;
+    }
+
+    .close-btn {
+        display: block;
+        position: absolute;
+        right: 1.2em;
+        top: 1.8em;
+        opacity: 0.6;
+    }
+
+    .navbar {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0;
+        list-style: none;
+        box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28);
+        height: 100vh;
+        width: 20%;
+        position: relative;
+        left: 0px;
+        top: 0px;
+        color: white;
+        z-index: 999999;
+        padding: 5.5em 0 0 0;
+
+    }
+
+    .navbar > div {
+        background: #071B4A;
+    }
+
+    .navbar-top {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        background: white;
+        height: auto !important;
+        height: -moz-fit-content !important;
+        width: 100%;
+    }
+
+    .navbar li a {
+        color: white;
+    }
+
+    .navbar li a:hover {
+        color: lightgrey;
+    }
+
+    .menu-icon {
+        width: fit-content;
+        width: -moz-fit-content;
+        justify-self: flex-start;
+        position: absolute;
+        left: 1em;
+        top: 1.5em !important;
+        cursor: pointer;
+    }
+
+    .menu-icon > img {
+        transform: scale(1.1);
+        filter: invert(100%);
+        -webkit-filter: invert(100%);
+    }
+
     .main-wrapper {
         width: 100vw;
         display: block;
@@ -136,8 +332,9 @@
         top: 0px;
         left: 0px;
         width: 100%;
-        height: 30%;
-        padding: 0.5em;
+        height: auto;
+        padding: 0px;
+        align-items: flex-start;
         row-gap: 0px;
     }
 
@@ -163,6 +360,26 @@
         flex-basis: 50%;
         z-index: 999999;
     }
+
+    .sidebar-top {
+        padding: 1.5em 0;
+        background: #071B4A;
+        color: white;
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
+
+    .logo-txt {
+        z-index: 100000000;
+        flex: 1;
+        font-size: large;
+        font-weight: bolder;
+        color: white;
+        letter-spacing: 1px;
+        text-align: center;
+        align-self: center;
+    }
     
     .bus-info {
         display: flex;
@@ -176,6 +393,27 @@
         padding: 0.5em;
     }
 
+    .sidebar-bottom {
+        width: 50%;
+        justify-content: flex-start;
+        column-gap: 0.5em;
+        border-bottom: none;
+        padding-top: 1em;
+        padding-left: 1em;
+        font-size: smaller;
+    }
+
+    .form-wrapper {
+        position: absolute;
+        top: 100%;
+        left: 0.4em;
+        width: 97%;
+        border-radius: 10px;
+        box-shadow: 2px 2px 3px darkgray;
+        background: white;
+        padding: 0px 1em 2em 1em;
+    }
+
     .cancel-btn {
         top: 0.2em;
         left: 90%;
@@ -186,6 +424,14 @@
         transform: scale(0.7);
     }
 
+
+    .bus-info-toast {
+        bottom: 0.2em;
+        left: 0.2em;
+        width: 99%;
+    }
+
+
     .leaflet-control-zoom {
         visibility: hidden;
     }
@@ -194,9 +440,12 @@
         transform: scale(0.7);
     }
     .direction-icon {
-        transform: scale(0.6);
+        transform: scale(0.75);
     }
     .bus-info {
         row-gap: 1em;
+    }
+    #bus-map {
+        width: 100%;
     }
 }

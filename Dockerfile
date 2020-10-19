@@ -21,4 +21,4 @@ RUN npm install
 # build the app
 RUN npm build
 
-CMD ["npm", "start"]
+CMD ["npm", "run", "dev"]
