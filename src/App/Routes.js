@@ -6,6 +6,7 @@ import aboutPage from '../pages/aboutPage/aboutPage';
 import Faqs from '../pages/FAQpage/FAQPage';
 import ErrorPage from '../shared/components/ErrorPage/';
 import history from '../browserHistory';
+import AdminPage from 'Dashboard/';
 
 const Routes = () => (
   <Router history={history}>
@@ -15,6 +16,7 @@ const Routes = () => (
       <Route path="/contact" component={contactPage} />
       <Route path="/about" component={aboutPage} />
       <Route path="/faqs" component={Faqs} />
+      <Route path="/admin" component={AdminPage} />
       <Route component={ErrorPage} />
     </Switch>
   </Router>
