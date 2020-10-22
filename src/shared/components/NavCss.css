@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;700&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Ubuntu", "sans-serif";
+}
+
+
+#navbar1 {
+    padding: 15px 10px 10px 10px;
+    background-color:white;
+}
+.navbar1 ul {
+    display: flex;
+}
+.navbar1 ul li {
+    padding-left: 8px;
+    list-style: none;
+}
+.navbar1 ul li a {
+    color: #000;
+    font-size: 17px;
+    text-decoration: none;
+}
+#logo1{
+    margin-right: 47vw;
+    margin-left: 3vw;
+}
+#home,#aboutPage,#aboutPage,#contact,#faqs,#login{
+    margin-right: 40px;
+}
+#mobileView{
+    display: none;
+}
+@media (max-width: 957px) {
+    #mobileView{
+        display:flex;
+        width: 100%;
+        padding: 15px 10px 10px 10px;
+        background-color: #071B4A;
+        color: white;
+        
+    }
+    #mobileView ul{
+        justify-content: center;
+        display: flex;
+        white-space: nowrap;
+    }
+     #navbar1{
+        display: none;
+    }
+    #mobileMenu{
+        margin-right: 30vw;
+        margin-left: 3vw;
+    }
+
+    #lis{
+        margin-top: 20vh;
+    }
+    
+    #mobileView ul li {
+        list-style: none;
+        color:white;
+    }
+    #mobileView ul li a {
+        color: #ffffff;
+        font-size: 17px;
+        text-decoration: none;
+        
+    }
+    #MobileHome{
+        display:table;
+        margin:0 auto;
+        color:white;
+    } 
+    #up{
+        position:absolute;
+        background-color: white;
+        width: 100%;
+        height: 80px;
+        left:0;
+        display: inline-block;
+    }
+    .back-btn1{
+        width: 20px;
+        height:20px;
+        margin-left: 50%;
+        margin-right: 5%;
+    }
+    .navbar2 li{
+      margin-top: 10vh;
+    }
+    }
+    @media (max-width: 457px) {
+        .back-btn1{
+            width: 20px;
+            height:20px;
+            margin-top: 5%;
+            margin-left: 30%;
+            margin-right: 5%;
+        } 
+        .buslogo{
+            margin-top: 5%;
+            margin-left: 2%;
+        }
+    }

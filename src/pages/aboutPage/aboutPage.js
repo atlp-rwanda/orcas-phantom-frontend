@@ -59,8 +59,9 @@ const aboutPage = ()=>{
       <Nav />
       <H1><span>About Us</span></H1>
       <Div>
+        <H2>Who we are</H2>
         <P>
-          <H2>Who we are</H2>
+          
           The  service is part of the  $20 million assembly plant
            in Rwanda which released its first fleet of cars last year. The App works 
            on iOS and Android Smartphones, which 
