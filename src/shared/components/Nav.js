@@ -1,61 +1,111 @@
-import React from 'react'
-import { Router, NavLink } from 'react-router-dom';
+import React, {  useContext } from 'react';
+import { NavLink,Router} from "react-router-dom";
+import buslogo from 'App/assets/images/logo1.png'; 
+
+import SideBar from './SideBar';
 import history from '../../browserHistory';
+import { AppContext } from 'context/AppProvider';
+import menuIcon from 'App/assets/images/menu-Icon.png';
+import './NavCss.css';
 import Styled from '@emotion/styled';
 
 
-const Navbar=Styled.div`
-padding: 15px 10px 10px 10px;
-background-color: rgb(12, 104, 243);
-display: flex;
-justify-content: center;
-align-items: center;
-margin-bottom: 0%;
+const SideMenu=Styled.div`
+position:fixed;
+width:50%;
+height:100%;
+color: white;
+top:0;
+left:0;
+background-color: #071B4A;
+z-index:999999;
 `;
-const Ul =Styled.ul`
-    display: flex;
-    margin-left: 700px;
-    margin-right: 100px;
-`;
-const Li =Styled.li`
-    padding-left: 8px;
-    list-style: none;
-    margin-left: 10px;
-`;
-const Span=Styled.span`
-    color: #fff;
-    font-size: 17px;
-    text-decoration: none;
-    font-family:'Ubuntu', sans-serif;
-`;
-const Logo=Styled.span`
-  color: #fff;
-  text-decoration: none !important;
-  font-family:'Ubuntu', sans-serif;
-  `;
-
-
-const Nav = () => {
+const Nav=()=>{
+  const { state, setState } = useContext(AppContext);
+  
+  
   return (
-    <div>
-      <Navbar>
-        <Router history={history}>
-          <h2><NavLink to="/"><Logo>Phantom Ride</Logo></NavLink></h2>
-          <Ul>
-            <Li>
-              <NavLink to="/contact"><Span>Contact Us</Span></NavLink>
-            </Li>
-            <Li>
-              <NavLink to="/about"><Span>About Us</Span></NavLink>
-            </Li>
-            <Li>
-              <NavLink to="/faqs"><Span>FAQs</Span></NavLink>
-            </Li>
-          </Ul>
-        </Router>
-      </Navbar>
+    <div >
+      <Router history={history}>
+        <div className="navbar1" id='navbar1'>
+      
+          <ul>
+            <li>
+              <div id='logo1'>
+                <NavLink to="/"><img src={buslogo} /></NavLink>
+              </div>
+            </li>
+            <li>
+              <div id='home'>
+                <NavLink to="/">Home</NavLink>
+              </div>
+            </li>
+            <li>
+              <div id='aboutPage'>
+                <NavLink to="/about">About</NavLink>
+              </div>
+            </li>
+            <li>
+              <div id='contact'>
+                <NavLink to="/contact">Contacts</NavLink>
+              </div>
+            </li>
+            <li>
+              <div id='faqs'>
+                <NavLink to="/faqs">FAQs</NavLink>
+              </div>
+            </li>
+            <li>
+              <div id='login' >
+                <NavLink to="/faqs">Login</NavLink>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div id='mobileView'>
+          <ul>
+            <li>
+              <div id='mobileMenu'>{
+                state.isNavToggled ?  <SideMenu><SideBar /></SideMenu>
+
+                  :
+
+                  <div
+                    data-testid="menu-icon"
+                    onClick={() => setState({
+                      ...state,
+                      isNavToggled: !state.isNavToggled
+                    })}
+                    className="menu-icon1">
+                    <img src={menuIcon} />
+                  </div>
+              }
+              { state.isSubmitted ?
+                <div
+                  data-testid="cancel-btn"
+                  onClick={() =>
+                    setState({
+                      ...state,
+                      origin: "",
+                      destination: "",
+                      isSubmitted: false
+                    })
+                  }
+                  className="cancel-btn">
+                  <i className="fa fa-close fa-lg" style={{color: "white"}}></i></div>
+                : <div data-testid="cancel-btn"></div> }
+              </div>
+            </li>
+            <li>
+              <div id='MobileHome'>
+                <NavLink to="/">PHANTOM</NavLink>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </Router>
     </div>
   );
-};
+}
 
 export default Nav;
