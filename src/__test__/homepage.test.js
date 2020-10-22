@@ -48,6 +48,7 @@ describe("Tests if all components are being rendered and work as expected", () =
     fireEvent.click(getByTestId('menu-icon'));
 
     fireEvent.click(getByTestId('navbar-hide-icon'));
+    
   });
 
   it(">>>> Search Panel can be toggled", () => {

@@ -7,7 +7,7 @@ import SearchPanel from './SearchPanel';
 import SideMenu from './SideMenu';
 import BusInfo from './BusInfo';
 import Footer from './Footer';
-import menuIcon from 'App/assets/images/menu-icon.svg';
+import menuIcon from 'App/assets/images/menu-Icon.png';
 import originBS from 'shared/constants/originBusStops.js';
 import destinationBS from 'shared/constants/destBusStops.js';
 
