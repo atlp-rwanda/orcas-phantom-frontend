@@ -107,7 +107,6 @@ export const H3=Styled.h3`
 font-weight: bold;
 @media (max-width: 700px) {
   width: 90%;
-  color: #10046C;
   font-size: 14px;
   margin-right:1%;
   font-weight: bold;

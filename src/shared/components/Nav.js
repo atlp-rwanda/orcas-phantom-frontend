@@ -12,7 +12,7 @@ import Styled from '@emotion/styled';
 
 const SideMenu=Styled.div`
 position:fixed;
-width:50%;
+width:70%;
 height:100%;
 color: white;
 top:0;
