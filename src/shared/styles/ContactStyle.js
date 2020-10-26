@@ -7,10 +7,10 @@ flex-direction: row;
 border-radius: 10px;
 margin-left: 10%;
 margin-ritght: 9%;
-margin-top: 3%;
-width: 75%;
+margin-top: 1%;
+width: 80%;
 justify-content: space-evenly;
-height: 70vh;
+height: -50%;
 @media (max-width: 700px) {
   display: flex;
 flex-direction: column;
@@ -28,6 +28,7 @@ color: white;
 text-decoration: none;
 line-width: 1px;
 margin-top: 2%;
+margin-left: 8%
 font-size: 20px;
 @media (max-width: 700px) {
   margin-left: -8%
@@ -49,10 +50,12 @@ export const Contact =Styled.div`
 display: flex;
 flex-direction: column;
 background-color: white;
-width: 30%;
-height: 80%;
+width: 34%;
+height: 50%;
 padding: 1em;
 margin-top: 4%;
+margin-bottom: 5%;
+margin-right: 10%;
 border-radius: 10px;
 @media (max-width: 700px) {
   width: 90%;
@@ -72,7 +75,7 @@ margin-top:10%;
 
 export const Textarea=Styled.textarea`
 width: 90%;
-height: 150px;
+height: 100px;
 border-radius: 10px;
 background-color: #E8E9F1;
 border-color: #276EF1;

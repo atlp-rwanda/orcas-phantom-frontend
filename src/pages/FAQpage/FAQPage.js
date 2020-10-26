@@ -46,7 +46,7 @@ const Faqs = () =>{
         
         <Button>How can I get information about Phantom app</Button>
         
-        <Button>How can I get information about Phantom app</Button>
+     
         
       </Div>
       <Footer />

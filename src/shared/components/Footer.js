@@ -6,7 +6,7 @@ import Styled from '@emotion/styled';
 
 const FooterWrapper = Styled.footer`
   z-index: 99999;
-  position: absolute;
+  
   width: 100vw;
   bottom: 0px;
   padding: 1em 0px;
@@ -19,6 +19,8 @@ const FooterWrapper = Styled.footer`
   align-items: center;
   justify-content: center;
   column-gap: 1em;
+  position: fixed;
+  height: 7%;
   @media (max-width: 768px) {
     display: none;
   }

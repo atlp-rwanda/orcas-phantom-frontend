@@ -36,7 +36,7 @@ const contactPage = () =>  {
             </DDiv>
           </CompanyInfo>
           <Contact>
-            <Form>
+            <Form className="FormWeb">
               <Div>
                 <Input type="text" className="input" placeholder="your names" required />
               </Div>

@@ -1,18 +1,18 @@
 import React, {  useContext } from 'react';
 import { NavLink,Router} from "react-router-dom";
-import buslogo from 'App/Assets/images/logo1.png'; 
+import buslogo from 'App/assets/images/logo1.png'; 
 
 import SideBar from './SideBar';
 import history from '../../browserHistory';
 import { AppContext } from 'context/AppProvider';
-import menuIcon from 'App/Assets/images/menu-Icon.png';
+import menuIcon from 'App/assets/images/menu-Icon.png';
 import './NavCss.css';
 import Styled from '@emotion/styled';
 
 
 const SideMenu=Styled.div`
 position:fixed;
-width:50%;
+width:70%;
 height:100%;
 color: white;
 top:0;

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Link as NavLink } from 'react-router-dom';
-import backButton from 'App/Assets/images/close.png';
-import buslogo from 'App/Assets/images/logo1.png'; 
+import backButton from 'App/assets/images/close.png';
+import buslogo from 'App/assets/images/logo1.png'; 
 import { AppContext } from 'context/AppProvider';
 import facebook from 'App/assets/images/facebook.svg';
 import instagram from 'App/assets/images/instagram.svg';

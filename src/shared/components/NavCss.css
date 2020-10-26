@@ -45,11 +45,13 @@
         background-color: #071B4A;
         color: white;
         
+        
     }
     #mobileView ul{
         justify-content: center;
         display: flex;
         white-space: nowrap;
+        
     }
      #navbar1{
         display: none;
@@ -57,10 +59,12 @@
     #mobileMenu{
         margin-right: 30vw;
         margin-left: 3vw;
+       
     }
 
     #lis{
         margin-top: 20vh;
+        
     }
     
     #mobileView ul li {
@@ -100,9 +104,10 @@
         .back-btn1{
             width: 20px;
             height:20px;
-            margin-top: 5%;
-            margin-left: 30%;
-            margin-right: 5%;
+            margin-top: 10%;
+            /* margin-left: 45%;
+            margin-right: 2%; */
+            float: right;
         } 
         .buslogo{
             margin-top: 5%;
