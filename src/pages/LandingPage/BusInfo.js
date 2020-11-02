@@ -1,51 +1,46 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import busIcon from 'App/assets/images/bus-icon.svg';
-import clockIcon from 'App/assets/images/clock.svg';
-import Styled from '@emotion/styled';
+import React from "react";
+import PropTypes from "prop-types";
+import busIcon from "App/assets/images/bus-icon.svg";
+import clockIcon from "App/assets/images/clock.svg";
+import {
+  NearbyBus,
+  BusDetailIcon,
+  BusIcon,
+  BusInfoToast,
+  BusDetailWrapper,
+  BusDetail,
+} from "shared/styles/homepageStyles";
 
-const NearbyBus = Styled.div`
-  text-align: left;
-  font-size: smaller;
-  opacity: 0.65;
-`;
-
-const BusDetailIcon = Styled.div`
-  margin-right: 2em;
-`;
-
-const BusIcon = Styled.img`
-  @media (max-width: 768px) {
-    transform: scale(0.8);
-  }
-`;
-
-const BusInfo = props => {
+const BusInfo = (props) => {
   return (
-    <div data-testid="bus-info-toast" className="bus-info-toast">
+    <BusInfoToast data-testid="bus-info-toast">
       <div>
         <BusIcon src={busIcon} />
       </div>
       <div>
-        <div className="bus-detail-wrapper">
-          <BusDetailIcon><img src={clockIcon} /></BusDetailIcon>
+        <BusDetailWrapper>
+          <BusDetailIcon>
+            <img src={clockIcon} />
+          </BusDetailIcon>
           <div>
             <NearbyBus>A Nearby Bus is</NearbyBus>
             <div className="text-info time-remaining">10 min</div>
-            <div className="bus-detail">away from {props.data.origin} Bus Stop</div>
+            <BusDetail>away from {props.data.origin} Bus Stop</BusDetail>
           </div>
-        </div>
-        <div style={{marginTop: "1em"}} className="bus-detail-wrapper">
-          <BusDetailIcon style={{marginRight: "1em"}}>Plate: </BusDetailIcon>
-          <div className="bus-detail"><strong>RAC43353</strong></div>
-        </div>
+        </BusDetailWrapper>
+        <BusDetailWrapper style={{ marginTop: "1em" }}>
+          <BusDetailIcon style={{ marginRight: "1em" }}>Plate: </BusDetailIcon>
+          <BusDetail>
+            <strong>RAC43353</strong>
+          </BusDetail>
+        </BusDetailWrapper>
       </div>
-    </div>
+    </BusInfoToast>
   );
-}
+};
 
 BusInfo.propTypes = {
-  data: PropTypes.object
+  data: PropTypes.object,
 };
 
 export default BusInfo;
