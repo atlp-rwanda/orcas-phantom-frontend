@@ -18,7 +18,11 @@ const store = {
   destination: "",
   isSubmitted: false,
   isNavToggled: false,
-  isSearchToggled: true
+  isSearchToggled: true,
+  isAuthenticated:false,
+  validated:true,
+  currentUser:localStorage.getItem("user"),
+  loading:false
 }
 
 export const AppContext = createContext(store);

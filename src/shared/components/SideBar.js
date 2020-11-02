@@ -45,7 +45,7 @@ const SideBar = () => {
               <NavLink className="text-center text-light" to="/faqs">FAQs</NavLink>
             </li>
             <li>
-              <NavLink className="text-center text-light" to="/faqs">Login</NavLink>
+              <NavLink className="text-center text-light" to="/AdminLogin">Login</NavLink>
             </li>
           </div>
           <MobileFooter>
