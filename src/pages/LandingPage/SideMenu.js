@@ -57,7 +57,9 @@ const SideMenu = (props) => {
               FAQs
             </NavLink>
           </li>
-
+          <li>
+            <NavLink className="text-center text-light" to="/AdminLogin">Admin Login</NavLink>
+          </li>
           <MobileFooter>
             <FooterIcons>
               <img src={facebook} />

@@ -1,4 +1,4 @@
-import React, {  useContext } from 'react';
+import React, {  useContext} from 'react';
 import { NavLink,Router} from "react-router-dom";
 import buslogo from 'App/assets/images/logo1.png'; 
 
@@ -23,6 +23,10 @@ z-index:999999;
 const Nav=()=>{
   const { state, setState } = useContext(AppContext);
   
+  const logout=()=>{
+    localStorage.removeItem("user");
+    setState({...state,currentUser:null});
+  }
   
   return (
     <div >
@@ -57,7 +61,11 @@ const Nav=()=>{
             </li>
             <li>
               <div id='login' >
-                <NavLink to="/faqs">Login</NavLink>
+                {state.currentUser?<NavLink to="/AdminLogin" onClick={logout}>
+                  Logout
+                </NavLink>:<NavLink to="/AdminLogin">
+                  Login
+                </NavLink>}
               </div>
             </li>
           </ul>
@@ -80,20 +88,6 @@ const Nav=()=>{
                     <img src={menuIcon} />
                   </div>
               }
-              { state.isSubmitted ?
-                <div
-                  data-testid="cancel-btn"
-                  onClick={() =>
-                    setState({
-                      ...state,
-                      origin: "",
-                      destination: "",
-                      isSubmitted: false
-                    })
-                  }
-                  className="cancel-btn">
-                  <i className="fa fa-close fa-lg" style={{color: "white"}}></i></div>
-                : <div data-testid="cancel-btn"></div> }
               </div>
             </li>
             <li>
