@@ -371,3 +371,411 @@ describe("Tests for Routes section", () => {
     });
   });
 });
+describe("Tests for Users section", () => {
+  describe("Tests for table sorting and selecting", () => {
+    it(">>>> can select all rows and unselect them", () => {
+      const { getByTestId } = render(<AdminPage />);
+      fireEvent.click(getByTestId("users"));
+
+      expect(getByTestId("select-all-rows")).toBeValid();
+      fireEvent.click(getByTestId("select-all-rows"));
+
+      expect(getByTestId("select-all-rows")).toBeValid();
+      fireEvent.click(getByTestId("select-all-rows"));
+    });
+
+    // it(">>>> can sort rows by characters", () => {
+    //   const { getByTestId } = render(<AdminPage />);
+    //   fireEvent.click(getByTestId("users"));
+    //   expect(getByTestId("sort-by-char")).toBeValid();
+    //   fireEvent.click(getByTestId("sort-by-char"));
+    // });
+    // it(">>>> can sort rows by numbers", () => {
+    //   const { getByTestId } = render(<AdminPage />);
+    //   fireEvent.click(getByTestId("users"));
+    //   expect(getByTestId("sort-by-numbers")).toBeValid();
+    //   fireEvent.click(getByTestId("sort-by-numbers"));
+    // });
+    // it(">>>> can expand a row and collapse it", () => {
+    //   const { getByTestId } = render(<AdminPage />);
+    //   fireEvent.click(getByTestId("users"));
+
+    //   expect(getByTestId("expand-row-btn")).toBeValid();
+    //   fireEvent.click(getByTestId("expand-row-btn"));
+
+    //   expect(getByTestId("expand-row-btn")).toBeValid();
+    //   fireEvent.click(getByTestId("expand-row-btn"));
+    // });
+    it(">>>> can sort rows by characters", () => {
+      const { getByTestId } = render(<AdminPage />);
+      fireEvent.click(getByTestId("users"));
+      expect(getByTestId("sort-by-char")).toBeValid();
+      fireEvent.click(getByTestId("sort-by-char"));
+    });
+  });
+  describe("Tests for table pagination", () => {
+    it(">>>> can move to the next and last page", () => {
+      const { getByTestId } = render(<AdminPage />);
+      fireEvent.click(getByTestId("users"));
+
+      expect(getByTestId("next-page-btn")).toBeValid();
+      expect(getByTestId("last-page-btn")).toBeValid();
+
+      fireEvent.click(getByTestId("next-page-btn"));
+      fireEvent.click(getByTestId("last-page-btn"));
+    });
+
+    it(">>>> can move to the previous and first page", () => {
+      const { getByTestId } = render(<AdminPage />);
+      fireEvent.click(getByTestId("users"));
+
+      expect(getByTestId("next-page-btn")).toBeValid();
+      expect(getByTestId("last-page-btn")).toBeValid();
+
+      fireEvent.click(getByTestId("next-page-btn"));
+      fireEvent.click(getByTestId("last-page-btn"));
+
+      expect(getByTestId("previous-page-btn")).toBeValid();
+      expect(getByTestId("first-page-btn")).toBeValid();
+
+      fireEvent.click(getByTestId("previous-page-btn"));
+      fireEvent.click(getByTestId("first-page-btn"));
+    });
+  });
+  // create user modal
+  describe("Tests for create useer modal", () => {
+    it(">>>> Can open create user modal correctly", () => {
+      const { getByTestId } = render(<AdminPage />);
+      fireEvent.click(getByTestId("users"));
+      expect(getByTestId("open-create-modal")).toBeValid();
+      fireEvent.click(getByTestId("open-create-modal"));
+    });
+    it(">>>> Can open the create User modal correctly and NOT submit the form with empty fields", () => {
+      const { getByTestId } = render(<AdminPage />);
+      fireEvent.click(getByTestId("users"));
+      expect(getByTestId("open-create-modal")).toBeValid();
+      fireEvent.click(getByTestId("open-create-modal"));
+
+      expect(getByTestId("create-user-btn")).toBeValid();
+      fireEvent.click(getByTestId("create-user-btn"));
+
+      expect(getByTestId("cancel-create-user-btn")).toBeValid();
+    });
+    it(">>>> Can create a user from the modal", () => {
+      const { getByTestId } = render(<AdminPage />);
+      fireEvent.click(getByTestId("users"));
+
+      expect(getByTestId("open-create-modal")).toBeValid();
+      fireEvent.click(getByTestId("open-create-modal"));
+
+      fireEvent.change(getByTestId("Name-create"), {
+        target: { value: "Ange" },
+      });
+      expect(getByTestId("Name-create").value).toMatch("Ange");
+
+      fireEvent.change(getByTestId("Email-create"), {
+        target: { value: "inange2013@gmail.com" },
+      });
+      expect(getByTestId("Email-create").value).toMatch("inange2013@gmail.com");
+
+      fireEvent.change(getByTestId("user-status-create"), {
+        target: { value: "Active" },
+      });
+      expect(getByTestId("user-status-create").value).toMatch("Active");
+
+      fireEvent.click(getByTestId("create-user-btn"));
+    });
+    it(">>>> Can open and cancel create user modal correctly", () => {
+      const { getByTestId } = render(<AdminPage />);
+      fireEvent.click(getByTestId("users"));
+      expect(getByTestId("open-create-modal")).toBeValid();
+      fireEvent.click(getByTestId("open-create-modal"));
+
+      expect(getByTestId("cancel-create-user-btn")).toBeValid();
+      fireEvent.click(getByTestId("cancel-create-user-btn"));
+    });
+  });
+  // update user modal
+  describe("Tests for update user modal", () => {
+    it(">>>> Can select a bus and the edit button renders correctly", () => {
+      const { getByTestId } = render(<AdminPage />);
+      fireEvent.click(getByTestId("users"));
+
+      expect(getByTestId("user-row")).toBeValid();
+      fireEvent.click(getByTestId("user-row"));
+
+      expect(getByTestId("open-update-modal")).toBeValid();
+    });
+
+    it(">>>> Can select a user, click on the edit button, and the update modal renders correctly", () => {
+      const { getByTestId } = render(<AdminPage />);
+      fireEvent.click(getByTestId("users"));
+
+      fireEvent.click(getByTestId("user-row"));
+
+      fireEvent.click(getByTestId("open-update-modal"));
+
+      expect(getByTestId("update-user-btn")).toBeValid();
+    });
+
+    it(">>>> Can select a user, click on the edit button, and cancel the update modal correctly", () => {
+      const { getByTestId } = render(<AdminPage />);
+      fireEvent.click(getByTestId("users"));
+
+      fireEvent.click(getByTestId("user-row"));
+
+      fireEvent.click(getByTestId("open-update-modal"));
+
+      expect(getByTestId("cancel-update-modal-btn")).toBeValid();
+      fireEvent.click(getByTestId("cancel-update-modal-btn"));
+    });
+
+    it(">>>> Can update a user correctly", () => {
+      const { getByTestId } = render(<AdminPage />);
+      fireEvent.click(getByTestId("users"));
+
+      fireEvent.click(getByTestId("user-row"));
+
+      fireEvent.click(getByTestId("open-update-modal"));
+
+      fireEvent.change(getByTestId("Name-update"), {
+        target: { value: "Ange" },
+      });
+      expect(getByTestId("Name-update").value).toMatch("Ange");
+
+      fireEvent.change(getByTestId("user-email-update"), {
+        target: { value: "inange2013@gmail.com" },
+      });
+      expect(getByTestId("user-email-update").value).toMatch(
+        "inange2013@gmail.com"
+      );
+
+      fireEvent.change(getByTestId("user-status-update"), {
+        target: { value: "Active" },
+      });
+      expect(getByTestId("user-status-update").value).toMatch("Active");
+
+      fireEvent.click(getByTestId("update-user-btn"));
+    });
+  });
+  // delete user
+  describe("Tests for deleting a user", () => {
+    it(">>>> Can delete one user correctly", () => {
+      const { getByTestId } = render(<AdminPage />);
+      fireEvent.click(getByTestId("users"));
+
+      fireEvent.click(getByTestId("user-row"));
+
+      expect(getByTestId("delete-btn")).toBeValid();
+      fireEvent.click(getByTestId("delete-btn"));
+    });
+
+    it(">>>> Can delete two (multiple) users correctly", () => {
+      const { getByTestId } = render(<AdminPage />);
+      fireEvent.click(getByTestId("users"));
+
+      fireEvent.click(getByTestId("user-row"));
+      fireEvent.click(getByTestId("user-row2"));
+
+      expect(getByTestId("delete-btn")).toBeValid();
+      fireEvent.click(getByTestId("delete-btn"));
+    });
+  });
+});
+describe("Tests for buses section", () => {
+  describe("Tests for table sorting and selecting", () => {
+    it(">>>> can select all rows and unselect them", () => {
+      const { getByTestId } = render(<AdminPage />);
+      fireEvent.click(getByTestId("bus"));
+
+      expect(getByTestId("select-all-rows")).toBeValid();
+      fireEvent.click(getByTestId("select-all-rows"));
+
+      expect(getByTestId("select-all-rows")).toBeValid();
+      fireEvent.click(getByTestId("select-all-rows"));
+    });
+    it(">>>> can sort rows by characters", () => {
+      const { getByTestId } = render(<AdminPage />);
+      fireEvent.click(getByTestId("bus"));
+      expect(getByTestId("sort-by-char")).toBeValid();
+      fireEvent.click(getByTestId("sort-by-char"));
+    });
+    it(">>>> can sort rows by numbers", () => {
+      const { getByTestId } = render(<AdminPage />);
+      fireEvent.click(getByTestId("bus"));
+      expect(getByTestId("sort-by-numbers")).toBeValid();
+      fireEvent.click(getByTestId("sort-by-numbers"));
+    });
+  });
+  describe("Tests for table pagination", () => {
+    it(">>>> can move to the next and last page", () => {
+      const { getByTestId } = render(<AdminPage />);
+      fireEvent.click(getByTestId("bus"));
+
+      expect(getByTestId("next-page-btn")).toBeValid();
+      expect(getByTestId("last-page-btn")).toBeValid();
+
+      fireEvent.click(getByTestId("next-page-btn"));
+      fireEvent.click(getByTestId("last-page-btn"));
+    });
+
+    it(">>>> can move to the previous and first page", () => {
+      const { getByTestId } = render(<AdminPage />);
+      fireEvent.click(getByTestId("bus"));
+
+      expect(getByTestId("next-page-btn")).toBeValid();
+      expect(getByTestId("last-page-btn")).toBeValid();
+
+      fireEvent.click(getByTestId("next-page-btn"));
+      fireEvent.click(getByTestId("last-page-btn"));
+
+      expect(getByTestId("previous-page-btn")).toBeValid();
+      expect(getByTestId("first-page-btn")).toBeValid();
+
+      fireEvent.click(getByTestId("previous-page-btn"));
+      fireEvent.click(getByTestId("first-page-btn"));
+    });
+  });
+
+  // create Bus modal
+  describe("Tests for create bus modal", () => {
+    it(">>>> Can open create bus modal correctly", () => {
+      const { getByTestId } = render(<AdminPage />);
+      fireEvent.click(getByTestId("bus"));
+      expect(getByTestId("open-create-modal")).toBeValid();
+      fireEvent.click(getByTestId("open-create-modal"));
+    });
+    it(">>>> Can open the create bus modal correctly and NOT submit the form with empty fields", () => {
+      const { getByTestId } = render(<AdminPage />);
+      fireEvent.click(getByTestId("bus"));
+      expect(getByTestId("open-create-modal")).toBeValid();
+      fireEvent.click(getByTestId("open-create-modal"));
+
+      expect(getByTestId("create-bus-btn")).toBeValid();
+      fireEvent.click(getByTestId("create-bus-btn"));
+
+      expect(getByTestId("cancel-create-bus-btn")).toBeValid();
+    });
+    it(">>>> Can create a bus from the modal", () => {
+      const { getByTestId } = render(<AdminPage />);
+      fireEvent.click(getByTestId("bus"));
+
+      expect(getByTestId("open-create-modal")).toBeValid();
+      fireEvent.click(getByTestId("open-create-modal"));
+
+      fireEvent.change(getByTestId("bus-licence-create"), {
+        target: { value: "RAA279W" },
+      });
+      expect(getByTestId("bus-licence-create").value).toMatch("RAA279W");
+
+      fireEvent.change(getByTestId("bus-status-create"), {
+        target: { value: "inactive" },
+      });
+      expect(getByTestId("bus-status-create").value).toMatch("inactive");
+
+      fireEvent.change(getByTestId("add-Assigned-Route-cr"), {
+        target: { value: "Nyabugogo - Kimironko" },
+      });
+      expect(getByTestId("add-Assigned-Route-cr").value).toMatch(
+        "Nyabugogo - Kimironko"
+      );
+
+      fireEvent.click(getByTestId("create-bus-btn"));
+    });
+    it(">>>> Can open and cancel create bus modal correctly", () => {
+      const { getByTestId } = render(<AdminPage />);
+      fireEvent.click(getByTestId("bus"));
+      expect(getByTestId("open-create-modal")).toBeValid();
+      fireEvent.click(getByTestId("open-create-modal"));
+
+      expect(getByTestId("cancel-create-bus-btn")).toBeValid();
+      fireEvent.click(getByTestId("cancel-create-bus-btn"));
+    });
+  });
+  // update bus modal
+  describe("Tests for update bus modal", () => {
+    it(">>>> Can select a bus and the edit button renders correctly", () => {
+      const { getByTestId } = render(<AdminPage />);
+      fireEvent.click(getByTestId("bus"));
+
+      expect(getByTestId("bus-row")).toBeValid();
+      fireEvent.click(getByTestId("bus-row"));
+
+      expect(getByTestId("open-update-modal")).toBeValid();
+    });
+
+    it(">>>> Can select a bus, click on the edit button, and the update modal renders correctly", () => {
+      const { getByTestId } = render(<AdminPage />);
+      fireEvent.click(getByTestId("bus"));
+
+      fireEvent.click(getByTestId("bus-row"));
+
+      fireEvent.click(getByTestId("open-update-modal"));
+
+      expect(getByTestId("update-bus-btn")).toBeValid();
+    });
+
+    it(">>>> Can select a bus, click on the edit button, and cancel the update modal correctly", () => {
+      const { getByTestId } = render(<AdminPage />);
+      fireEvent.click(getByTestId("bus"));
+
+      fireEvent.click(getByTestId("bus-row"));
+
+      fireEvent.click(getByTestId("open-update-modal"));
+
+      expect(getByTestId("cancel-update-modal-btn")).toBeValid();
+      fireEvent.click(getByTestId("cancel-update-modal-btn"));
+    });
+
+    it(">>>> Can update a bus correctly", () => {
+      const { getByTestId } = render(<AdminPage />);
+      fireEvent.click(getByTestId("bus"));
+
+      fireEvent.click(getByTestId("bus-row"));
+
+      fireEvent.click(getByTestId("open-update-modal"));
+
+      fireEvent.change(getByTestId("licence-number-update"), {
+        target: { value: "RAA279W" },
+      });
+      expect(getByTestId("licence-number-update").value).toMatch("RAA279W");
+
+      fireEvent.change(getByTestId("bus-status-update"), {
+        target: { value: "inactive" },
+      });
+      expect(getByTestId("bus-status-update").value).toMatch("inactive");
+
+      fireEvent.change(getByTestId("add-Assigned-route"), {
+        target: { value: "Nyabugogo - Kimironko" },
+      });
+      expect(getByTestId("add-Assigned-route").value).toMatch(
+        "Nyabugogo - Kimironko"
+      );
+
+      fireEvent.click(getByTestId("update-bus-btn"));
+    });
+  });
+  // delete bus
+  describe("Tests for deleting a bus", () => {
+    it(">>>> Can delete one bus correctly", () => {
+      const { getByTestId } = render(<AdminPage />);
+      fireEvent.click(getByTestId("bus"));
+
+      fireEvent.click(getByTestId("bus-row"));
+
+      expect(getByTestId("delete-btn")).toBeValid();
+      fireEvent.click(getByTestId("delete-btn"));
+    });
+
+    it(">>>> Can delete two (multiple) buses correctly", () => {
+      const { getByTestId } = render(<AdminPage />);
+      fireEvent.click(getByTestId("bus"));
+
+      fireEvent.click(getByTestId("bus-row"));
+      fireEvent.click(getByTestId("bus-row2"));
+
+      expect(getByTestId("delete-btn")).toBeValid();
+      fireEvent.click(getByTestId("delete-btn"));
+    });
+  });
+});

@@ -33,11 +33,9 @@ export const BusInfoToast = Styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   > div:first-of-type {
     margin-right: 2em;
   }
-
   @media(max-width: 768px) {
     border-radius: 0px;
     bottom: 0px;
@@ -154,7 +152,6 @@ export const RouteWrapper = Styled.div`
 
 export const BusDetails = Styled.div`
   padding: 0px 1em 5em 1em;
-
   @media(max-width: 768px) {
     background: white;
     z-index: 999999;
@@ -208,7 +205,6 @@ export const SearchWrapper = Styled.div`
     top: 2em;
     justify-content: center;
     z-index: 9999999;
-
   }
 `;
 
