@@ -29,7 +29,7 @@ const SideBar = () => {
        
         <div id='ul'>
           <div id='up'>
-            <img className="buslogo" src={buslogo} /><img onClick={toggle} className="back-btn1" src={backButton} />
+            <img className="buslogo" src={buslogo} /><img onClick={toggle} data-testid="back-btn1" className="back-btn1" src={backButton} />
           </div>
           <div id="lis">
             <li>

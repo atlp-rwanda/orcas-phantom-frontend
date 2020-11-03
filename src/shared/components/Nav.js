@@ -1,7 +1,6 @@
 import React, {  useContext} from 'react';
 import { NavLink,Router} from "react-router-dom";
 import buslogo from 'App/assets/images/logo1.png'; 
-
 import SideBar from './SideBar';
 import history from '../../browserHistory';
 import { AppContext } from 'context/AppProvider';
@@ -79,7 +78,7 @@ const Nav=()=>{
                   :
 
                   <div
-                    data-testid="menu-icon"
+                    data-testid="menu-icon1"
                     onClick={() => setState({
                       ...state,
                       isNavToggled: !state.isNavToggled
