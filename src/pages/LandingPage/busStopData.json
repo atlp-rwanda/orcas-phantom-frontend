@@ -1,0 +1,122 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name":"biryogo"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.0565767288208,
+          -1.943777959381552
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name":"kacyiru"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.056405067443848,
+          -1.9391028720224148
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name":"remera"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.068550109863278,
+          -1.9463513964419479
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name":"downtown"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.084342956542972,
+          -1.94866748643803
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name":"sonatube"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.094642639160153,
+          -1.9510693541804334
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name":"rwandex"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.109233856201172,
+          -1.9595616447376818
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name":"chez landon"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.117044448852536,
+          -1.9589611811614622
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name":"kimironko"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.12176513671875,
+          -1.9611056929448512
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name":"kimihurua"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.11906147003174,
+          -1.9573313503698007
+        ]
+      }
+    }
+  ]
+}
