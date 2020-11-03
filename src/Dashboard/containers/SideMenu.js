@@ -18,6 +18,8 @@ import {
   Toggler,
   SideMenuFooter,
 } from "shared/styles/dashboard/";
+import { Link, Router } from "react-router-dom";
+import history from "browserHistory";
 
 const SideMenu = () => {
   const { dashboardState, setDashboardState } = useContext(DashboardContext);
@@ -35,24 +37,33 @@ const SideMenu = () => {
     >
       <div>
         <div className="log-section">
-          <Logo>
-            <div>
-              <img src={phantomLogo} />
-            </div>
-            <div>
-              <h3>Phantom</h3>
-            </div>
-            <Toggler
-              onClick={() => {
-                setDashboardState({
-                  ...dashboardState,
-                  isMenuToggled: !dashboardState.isMenuToggled,
-                });
-              }}
-            >
-              <img src={backButton} />
-            </Toggler>
-          </Logo>
+          <Router history={history}>
+            <Logo>
+              <div>
+                <Link to="/">
+                  <img src={phantomLogo} />
+                </Link>
+              </div>
+              <div>
+                <h3>
+                  <Link style={{ color: "black" }} to="/">
+                    Phantom
+                  </Link>
+                </h3>
+              </div>
+              <Toggler
+                data-testid="sidemenu-toggler"
+                onClick={() => {
+                  setDashboardState({
+                    ...dashboardState,
+                    isMenuToggled: !dashboardState.isMenuToggled,
+                  });
+                }}
+              >
+                <img src={backButton} />
+              </Toggler>
+            </Logo>
+          </Router>
         </div>
         <div>
           <ul>
