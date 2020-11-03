@@ -66,6 +66,7 @@ const TopNavBar = () => {
 
         <NavWrapper>
           <MenuToggler
+            data-testid="sidemenu-toggler-mobile"
             onClick={() => {
               setDashboardState({
                 ...dashboardState,
