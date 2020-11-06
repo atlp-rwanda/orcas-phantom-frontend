@@ -1,8 +1,5 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const dotEnv = require("dotenv-webpack");
-const { SourceMapDevToolPlugin } = require("webpack");
 
 module.exports = {
   entry: path.join(__dirname, "src", "index.js"),
@@ -27,17 +24,7 @@ module.exports = {
       },
       {
         test: /.(css)$/,
-        use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              attributes: {
-                nonce: "12345678",
-              },
-            },
-          },
-          "css-loader",
-        ],
+        use: ["style-loader", "css-loader"],
       },
       {
         test: /.html$/,
@@ -67,18 +54,6 @@ module.exports = {
       filename: "index.html",
       template: path.join(__dirname, "src", "index.html"),
     }),
-    new MiniCssExtractPlugin({
-      filename: "[name].css",
-      chunkFilename: "[id].css",
-    }),
-    new dotEnv({
-      path: "./.env",
-      allowEmptyValues: false,
-      systemvars: true,
-    }),
-    new SourceMapDevToolPlugin({
-      filename: "[file].map",
-    }),
   ],
   resolve: {
     // allows us to do absolute imports from "src"
@@ -86,6 +61,7 @@ module.exports = {
     extensions: ["*", ".js", ".jsx"],
   },
   devServer: {
+    contentBase: "./",
     historyApiFallback: true,
     hot: true,
     port: 8080,
