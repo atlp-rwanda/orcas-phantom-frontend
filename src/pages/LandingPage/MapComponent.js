@@ -4,13 +4,10 @@ import L from 'leaflet';
 import PropTypes from 'prop-types';
 import originIcon from 'App/assets/images/origin.svg';
 import destinationIcon from 'App/assets/images/destination.svg';
+import LeafLetMap from './LeafLetMap';
 
 
 const MapComponent = (props) => {
-  const samplePosition = {
-    lat: -1.9297648,
-    lng: 29.9871554
-  };
 
   if (props.origin !== undefined && props.destination !== undefined) {
     const origin = {
@@ -58,12 +55,7 @@ const MapComponent = (props) => {
   } else {
     return (
       <div data-testid="map-component">
-        <Map center={samplePosition} zoom={12}>
-          <TileLayer
-            attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-        </Map>
+        <LeafLetMap />
       </div>
     );
   }
