@@ -63,6 +63,11 @@
   height: auto;
 }
 
+/* style for leaflet routing  */
+.leaflet-control-container {
+  display: none;
+}
+
 .search-btn {
   margin-top: 1.3em;
 }
