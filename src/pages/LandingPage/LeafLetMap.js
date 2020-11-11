@@ -8,7 +8,7 @@ const LeafletMap = ()=>{
 
   const bus = {
     plate: 'RAC 500 B',
-    currentPosition:[-1.9402716450742195,30.055361688137054],
+    currentPosition:[-1.9691904776310798,30.086145401000973],
     busName: 'coaster'
   }
   const myBusIcon = L.icon({
@@ -40,7 +40,7 @@ const LeafletMap = ()=>{
         attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
       />
-      {mapState.isMapInit && <Routing map={mapRef.current}/>}
+      {mapState.isMapInit && <Routing map={mapRef.current} />}
       <Marker position={bus.currentPosition} icon={myBusIcon}>
         <Popup><i className="fa fa-building fa-lg"></i> Bus Plate: {bus.plate}, busName: {bus.busName}</Popup>
         <Tooltip>Tooltip for {bus.plate}</Tooltip>
