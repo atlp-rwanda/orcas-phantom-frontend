@@ -1,58 +1,72 @@
-import React from 'react';
-import Styled from '@emotion/styled';
+import React,{useState} from 'react';
 import Nav from 'shared/components/Nav';
 import Footer from 'shared/components/Footer';
+import Question from '../../App/assets/images/question.jpeg';
+import Faqs from './Faqs';
+import {Wrapper,Img,H1,Our,H4} from '../../shared/styles/FaqsStyle'
+import   '../../shared/styles/faqs.css';
 
 
-const H1=Styled.h1`
-text-align:center;
-text-decoration: underline;
-margin-bottom:10px;
-font-family:'Ubuntu', sans-serif;
-`;
-const H2=Styled.h2`
-text-align:center;
-margin-bottom:15px;
-font-family:'Ubuntu', sans-serif;
 
-`;
-const Div=Styled.div`
-display:flex;
-justify-content: center;
-align-items: center;
-flex-direction: column;
-flex-wrap: wrap;
-justify-content: space-around;
-`;
-const Button=Styled.button`
- width: 500px;
- height: 60px;
- margin-bottom:15px;
- font-family:'Ubuntu', sans-serif;
-`;
+const Faqpage = () =>{
+  const [faqs, setfaqs]=useState([
+    {
+      question: 'How accurate is the min calcuration ?',
+      ansuer: 'None don\'t address hardware issue',
+      open: false
+    },
+    {
+      question: 'How accurate is the min calcuration ?',
+      ansuer: 'None don\'t address hardware issue None don\'t address hardware issue None don\'t address hardware issue None don\'t address hardware issue',
+      open: false
+    },
+    {
+      question: 'How accurate is the min calcuration ?',
+      ansuer: 'None don\'t address hardware issue None don\'t address hardware issue None don\'t address hardware issue None don\'t address hardware issue ',
+      open: false
+    },
+    
+    {
+      question: 'How accurate is the min calcuration ?',
+      ansuer: 'None don\'t address hardware issue',
+      open: false
+    }
+  ]);
+  const toggleFaq= key =>{
+    
+    setfaqs(faqs.map((faq, i)=>{
+      
+      if(i === key ){
+        faq.open= !faq.open
+      }else{
+        faq.open= false;
+      }
+      return faq;
+    }))
 
-
-const Faqs = () =>{
+  }
  
   return(
     <div>
       <Nav />
-      <H1><span>FAQs</span></H1>
-      <H2>Frequently Asked questions</H2>
-      <Div>
-        <Button >How can I get information about Phantom app </Button>
+      <Wrapper>
+        <div className="image" >
+          <Img src={Question} />
+        </div>
+        <div  className="faqs">
+          <Our><H4>i</H4></Our>
+          <H1>FAQ</H1>
+          {faqs.map((faq, i) =>(
+            <div key={i}>
+              <Faqs faq={faq} index={i} toggleFaq={toggleFaq}/>   
+            </div>
+          ))}
+        </div>
         
-        <Button>How can I get information about Phantom app</Button>
-        
-        <Button>How can I get information about Phantom app</Button>
-        
-     
-        
-      </Div>
+      </Wrapper>
       <Footer />
-       
     </div>
   )
 }
 
-export default Faqs;
+export default Faqpage;

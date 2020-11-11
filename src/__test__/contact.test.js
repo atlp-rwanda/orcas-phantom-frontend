@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import ContactPage from '../pages/contactPage/contact';
 import AboutPage from '../pages/aboutPage/aboutPage';
 import Faqs from '../pages/FAQpage/FAQPage';
-import { cleanup } from '@testing-library/react';
+import {  cleanup } from '@testing-library/react';
+
 import ContextWrapper from 'context/AppProvider.js';
 
 
@@ -23,6 +24,9 @@ it ('>>>> should render all components', () => {
   const div3 = document.createElement('div');
   ReactDOM.render(<ContextWrapper><Faqs /></ContextWrapper>, div3);
   ReactDOM.unmountComponentAtNode(div3);
+  
+  
 });
+
 
 

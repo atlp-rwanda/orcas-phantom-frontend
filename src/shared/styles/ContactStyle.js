@@ -15,9 +15,9 @@ height: -50%;
   display: flex;
 flex-direction: column;
 background-color: #1C235A;
-width: 100%;
+width: 98%;
 margin-left: 1%;
-margin-ritght: 1%;
+margin-right: 4%;
 height: 100%;
 }
 `;
@@ -42,7 +42,7 @@ color: white;
 font-weight: bold;
 margin-left: 8%
 @media (max-width: 700px){
-  margin-left: 4%
+  margin-left: 2%
 }
 `;
 
@@ -107,6 +107,7 @@ margin-right: 30%;
 margin-left: 4%;
 @media (max-width: 700px) {
   margin-right: 2%;
+  margin-left: 1%;
 }
 `;
 export const DDiv=Styled.div`
