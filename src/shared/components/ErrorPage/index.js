@@ -1,8 +1,10 @@
-import React from 'react';
+import React from "react";
 
 const ErrorPage = () => (
-  <div>
-    <div><strong>404 Not Found</strong></div>
+  <div data-testid="error-page">
+    <div>
+      <strong>404 Not Found</strong>
+    </div>
   </div>
 );
 

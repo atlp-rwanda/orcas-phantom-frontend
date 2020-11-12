@@ -1,4 +1,5 @@
 import Styled from "@emotion/styled";
+// import LogoImage from "App/assets/images/phantom-logo-blue.svg";
 
 // Bus Info
 export const NearbyBus = Styled.div`
@@ -20,7 +21,7 @@ export const BusIcon = Styled.img`
 export const BusInfoToast = Styled.div`
   z-index: 99999;
   position: absolute;
-  bottom: 7em;
+  bottom: 5em;
   left: 43%;
   margin: 0 auto;
   padding: 1.5em;
@@ -38,9 +39,13 @@ export const BusInfoToast = Styled.div`
   }
 
   @media(max-width: 768px) {
-    bottom: 0.1em;
-    left: 0.2em;
-    width: 99%;
+    border-radius: 0px;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    max-width: 100%;
+    font-size: xx-small;
+    padding: 1em 0.5em;
   }
 `;
 
@@ -58,6 +63,9 @@ export const BusDetail = Styled.div`
   opacity: 0.7;
   letter-spacing: 1px;
   text-align: center;
+  @media (max-width: 768px) {
+    text-align: left;
+  }
 `;
 
 // Side Menu
@@ -134,12 +142,10 @@ export const RouteWrapper = Styled.div`
   align-items: center;
   justify-content: flex-start;
   width: 100%;
-  padding-top: em;
   margin: 0 auto;
   @media(max-width: 768px) {
-    z-index: 10000001;
     position: absolute;
-    top: 15em;
+    top: 14em;
     text-align: center;
     width: fit-content;
     width: -moz-fit-content;
@@ -161,6 +167,16 @@ export const BusDetails = Styled.div`
   }
 `;
 
+export const Logo = Styled.div`
+  background-image: url('src/App/assets/images/phantom-logo-blue.svg');
+  width: 100px;
+  height: 100px;
+  background-repeat: no-repeat;
+  @media(max-width: 768px) {
+      background-image: url('src/App/assets/images/phantom-logo-white.svg');
+  }
+`;
+
 // search box
 export const SearchWrapper = Styled.div`
   border-radius: 5px;
@@ -169,18 +185,22 @@ export const SearchWrapper = Styled.div`
 	z-index: 99999;
 	position: absolute;
 	top: 1em;
-	left: 45%;
+	left: 40%;
 	display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0px 2em;
   @media (max-width: 768px) {
+    left: 45%;
     border-radius: none;
     box-shadow: none;
     border: none;
-    top: 5em;
+    top: 7em;
     justify-content: center;
     padding: 0px 0.2em;
+    * {
+      font-size: small
+    };
   }
 `;
 

@@ -4,7 +4,6 @@ import backButton from "App/assets/images/back-button-navbar.svg";
 import facebook from "App/assets/images/facebook.svg";
 import instagram from "App/assets/images/instagram.svg";
 import twitter from "App/assets/images/twitter.svg";
-import Logo from "App/assets/images/logo.svg";
 import closeIcon from "App/assets/images/close-icon.svg";
 import PropTypes from "prop-types";
 import { MobileFooter, FooterIcons } from "shared/styles/homepageStyles";
@@ -35,7 +34,6 @@ const SideMenu = (props) => {
 
         <img src={closeIcon} className="close-btn" onClick={toggle} />
 
-        <img src={Logo} className="logo" />
         <div>
           <li>
             <NavLink className="text-center text-light" to="/">
@@ -58,7 +56,9 @@ const SideMenu = (props) => {
             </NavLink>
           </li>
           <li>
-            <NavLink className="text-center text-light" to="/AdminLogin">Admin Login</NavLink>
+            <NavLink className="text-center text-light" to="/AdminLogin">
+              Admin Login
+            </NavLink>
           </li>
           <MobileFooter>
             <FooterIcons>
