@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import directionIcon from "App/assets/images/direction-icon.svg";
 import backButton from "App/assets/images/back-button-homepage.svg";
 import PropTypes from "prop-types";
@@ -6,6 +6,8 @@ import originData from "shared/constants/originBusStops.js";
 import destinationData from "shared/constants/destBusStops.js";
 import { TextField } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
+import LogoDark from "App/assets/images/phantom-logo-blue.svg";
+import LogoWhite from "App/assets/images/phantom-logo-white.svg";
 import {
   OriginInput,
   DestinationInput,
@@ -71,6 +73,16 @@ const SearchPanel = (props) => {
     }
   };
 
+  const getWidth = () => window.innerWidth;
+
+  const [width, setWidth] = useState(getWidth());
+
+  const handleResize = () => setWidth(() => getWidth());
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+  }, []);
+
   return (
     <div className="sidebar">
       <div className="search-box">
@@ -84,7 +96,9 @@ const SearchPanel = (props) => {
               <img src={backButton} />
             </div>
           ) : null}
-          <div className="logo-txt">PHANTOM</div>
+          <div className="logo-txt">
+            {width > 768 ? <img src={LogoDark} /> : <img src={LogoWhite} />}
+          </div>
         </div>
 
         <div className="sidebar-bottom">
@@ -119,6 +133,7 @@ const SearchPanel = (props) => {
                     />
                   ) : (
                     <Autocomplete
+                      disablePortal
                       type="text"
                       name="origin"
                       style={{ width: "100%" }}
@@ -168,6 +183,7 @@ const SearchPanel = (props) => {
                     />
                   ) : (
                     <Autocomplete
+                      disablePortal
                       type="text"
                       name="destination"
                       style={{ width: "100%" }}
