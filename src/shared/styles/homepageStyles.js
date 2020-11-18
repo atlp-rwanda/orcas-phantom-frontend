@@ -121,7 +121,7 @@ export const SeparatorLine = Styled.hr`
   }
 `;
 
-export const HideOnMobile = Styled.div`
+export const HideOnMobile = Styled.p`
   @media (max-width: 768px) {
     display: none;
   }
@@ -201,6 +201,12 @@ export const SearchWrapper = Styled.div`
     * {
       font-size: small
     };
+  }
+  @media (max-width: 1080px) {
+    left: 28%;
+    
+    top: 2em;
+    
   }
 `;
 

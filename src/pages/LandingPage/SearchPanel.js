@@ -23,6 +23,7 @@ const SearchPanel = (props) => {
     props.setState({
       ...props.data,
       isSearchToggled: !props.data.isSearchToggled,
+      
     });
   };
 
@@ -84,7 +85,7 @@ const SearchPanel = (props) => {
   }, []);
 
   return (
-    <div className="sidebar">
+    <div className={`sidebar ${props.data.isSearchToggled ? "" : "sidebarHide"}`}>
       <div className="search-box">
         <div className="sidebar-top">
           {props.data.isSearchToggled ? (
@@ -102,8 +103,8 @@ const SearchPanel = (props) => {
         </div>
 
         <div className="sidebar-bottom">
-          <div>Location</div>
-          <div>Destination</div>
+          <p>Location</p>
+          <p>Destination</p>
           <HideOnMobile>Bus&nbsp;Location</HideOnMobile>
         </div>
 

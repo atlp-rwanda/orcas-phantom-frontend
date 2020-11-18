@@ -68,41 +68,43 @@ const LandingPage = () => {
 
   return (
     <main data-testid="homepage" className="main-wrapper">
-      <SearchBox />
+      <div className="LandingMenuWrapper">
+        <SearchBox />
+        
       
-      {
-        state.isSearchToggled ?
-          <SearchPanel
-            data={state}
-            handleChange={handleChange}
-            handleSubmit={handleSubmit}
-            setState={setState} />
-          :
-          <div
-            data-testid="search-icon"
-            onClick={() => setState({
-              ...state,
-              isSearchToggled: !state.isSearchToggled
-            })}
-            className="search-icon">
-            <img src={menuIcon} />
-          </div>
-      }
+        <SearchPanel
+          data={state}
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+          setState={setState}
+        />
+            
+        <SideMenu data={{...state}} setState={setState} /> 
+      </div>
+      <div
+        data-testid="search-icon"
+        onClick={() => setState({
+          ...state,
+          isSearchToggled: !state.isSearchToggled
+        })}
+        className="search-icon">
+        <img  src={menuIcon} />
+      </div>
+      
 
-      {
-        state.isNavToggled ?
-          <SideMenu data={{...state}} setState={setState} />
-          :
-          <div
-            data-testid="menu-icon"
-            onClick={() => setState({
-              ...state,
-              isNavToggled: !state.isNavToggled
-            })}
-            className="menu-icon">
-            <img src={menuIcon} />
-          </div>
-      }
+      
+      
+        
+      <div
+        data-testid="menu-icon"
+        onClick={() => setState({
+          ...state,
+          isNavToggled: !state.isNavToggled
+        })}
+        className="menu-icon">
+        <img src={menuIcon} />
+      </div>
+    
       <div id="bus-map">
         { 
           state.isSubmitted ?
