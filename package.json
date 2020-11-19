@@ -25,9 +25,9 @@
     "start": "node ./server.js",
     "dev": "webpack-dev-server --mode development --config webpack.config.js --open --fix",
     "build": "webpack --mode production --config webpack.config.js",
-    "test": "jest ./src/__test__/ ",
-    "test:watch": "jest --watch ./src/__test__/",
-    "test:coverage": "jest --coverage --colors ./src/__test__/",
+    "test": "jest --verbose ./src/__test__/",
+    "test:watch": "jest --watch --verbose ./src/__test__/",
+    "test:coverage": "jest --coverage --colors --verbose ./src/__test__/",
     "lint": "eslint --ext .jsx --ext  .js . --fix",
     "test:coveralls": "jest --coverage && coveralls < coverage/lcov.info"
   },
