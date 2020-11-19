@@ -118,8 +118,14 @@ body{
     }
     .navbarLanding{
       
-      width: 27%;
+      width: 50%;
       transition: 400ms ease;
+      z-index: 9999999;
+      left: 0;
+      height: 100%;
+    }
+    .navbar > div{
+      height: 100% !important;
     }
     .navbarLandingShow{
       width: 0%;
@@ -352,6 +358,7 @@ body{
       left: 1em;
       top: 2.5em !important;
       cursor: pointer;
+      z-index: 999999;
     }
   
     .menu-icon > img {
