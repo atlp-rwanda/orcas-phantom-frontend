@@ -202,6 +202,12 @@ export const SearchWrapper = Styled.div`
       font-size: small
     };
   }
+  @media (max-width: 1080px) {
+    left: 28%;
+    top: 2em;
+    justify-content: center;
+
+  }
 `;
 
 export const SearchInput = Styled.div`

@@ -84,7 +84,7 @@ const SearchPanel = (props) => {
   }, []);
 
   return (
-    <div className="sidebar">
+    <div className={`sidebar ${props.data.isSearchToggled ? "" : "sidebarHide"}`}>
       <div className="search-box">
         <div className="sidebar-top">
           {props.data.isSearchToggled ? (
