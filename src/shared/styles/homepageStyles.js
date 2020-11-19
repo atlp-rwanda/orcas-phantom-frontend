@@ -121,7 +121,7 @@ export const SeparatorLine = Styled.hr`
   }
 `;
 
-export const HideOnMobile = Styled.div`
+export const HideOnMobile = Styled.p`
   @media (max-width: 768px) {
     display: none;
   }
