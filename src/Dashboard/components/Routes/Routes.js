@@ -8,13 +8,13 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
-import Input from "@material-ui/core/Input";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import ListItemText from "@material-ui/core/ListItemText";
-import Select from "@material-ui/core/Select";
-import Checkbox from "@material-ui/core/Checkbox";
+// import Input from "@material-ui/core/Input";
+// import InputLabel from "@material-ui/core/InputLabel";
+// import MenuItem from "@material-ui/core/MenuItem";
+// import FormControl from "@material-ui/core/FormControl";
+// import ListItemText from "@material-ui/core/ListItemText";
+// import Select from "@material-ui/core/Select";
+// import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 import CancelIcon from "@material-ui/icons/Cancel";
 import SaveIcon from "@material-ui/icons/Save";
@@ -24,12 +24,14 @@ import Backdrop from "@material-ui/core/Backdrop";
 import EnhancedTableHead from "shared/components/dashboard/EnhancedTableHead";
 import EnhancedTableToolbar from "shared/components/dashboard/EnhancedTableToolbar";
 import TablePagination from "shared/components/dashboard/TablePagination";
-import { Autocomplete } from "@material-ui/lab";
+// import { Autocomplete } from "@material-ui/lab";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Axios from "axios";
 import Row from "./TableRows";
 import Fade from "./FadeComponent";
 import {
-  tableData,
-  busStops,
+  //tableData,
+  //busStops,
   headCells,
   indexNumericSort,
   indexCharSort,
@@ -42,6 +44,8 @@ import {
 } from "shared/styles/dashboard/routes/";
 import { createRows, getComparator, stableSort } from "./utils";
 
+
+
 const Routes = () => {
   // **************************************************
   // initial table state
@@ -53,6 +57,7 @@ const Routes = () => {
   const [rowsPerPage, setRowsPerPage] = useState(3);
   const [open, setOpen] = useState(false);
   const [createOpen, setCreateOpen] = useState(false);
+  const [isLoading, setLoading] = useState(true);
 
   const [routeNameUpdate, setRouteNameUpdate] = useState("");
   const [assignedBusesUpdate, setAssignedBusesUpdate] = useState(0);
@@ -72,46 +77,110 @@ const Routes = () => {
   //state for add bus stop in update modal
   const [addBusStop, setAddBusStop] = useState("");
   const [addBusStp, setAddBusStp] = useState("");
-  const [charCountAddBusStop, setCharCountAddBusStop] = useState(0);
+  //const [charCountAddBusStop, setCharCountAddBusStop] = useState(0);
   // state for add bus stop in create modal
   const [addBusStopCr, setAddBusStopCr] = useState("");
-  const [addBusStpCr, setAddBusStpCr] = useState("");
-  const [charCntAddBusStop, setCharCntAddBusStop] = useState(0);
+  //const [addBusStpCr, setAddBusStpCr] = useState("");
+  // const [charCntAddBusStop, setCharCntAddBusStop] = useState(0);
+  const [routeList, setrouteList] = useState([]);
+  const [rows, setRows] = useState([]);
+  const [buses, setBuses] = useState([]);
+  const [busStops, setBusStop] = useState([]);
 
-  const [rows, setRows] = useState(
-    tableData.map((route) =>
-      createRows(
-        route.id,
-        route.routeName,
-        route.busStopsCount,
-        route.assignedBuses,
-        route.startLoc,
-        route.destLoc,
-        route.routeLength,
-        route.routeCode,
-        route.busStops
-      )
+
+  //fetch busStops from backend
+
+  useEffect(() =>{
+    Axios.get(
+      "https://cors-anywhere.herokuapp.com/" +
+        "https://phantom-backend.herokuapp.com/busstop",
+      {
+        headers: {
+          Authorization: localStorage.getItem("user"),
+        },
+      }
+    ).then((response)=>{
+      setBuses(response.data);
+    }).catch((error)=> {
+      console.log(error);
+    })
+  },[])
+ 
+
+  useEffect(()=>{
+    if(buses.length !== 0){
+      setBusStop(buses.map(bus=>{
+        return bus;
+      }))
+      setLoading(false);
+    }
+  },[buses])
+  
+  
+  console.log(busStops)
+ 
+  // fetch routes from backend
+  useEffect(() => {
+    Axios.get(
+      "https://cors-anywhere.herokuapp.com/" +
+        "https://phantom-backend.herokuapp.com/routes",
+      {
+        headers: {
+          Authorization: localStorage.getItem("user"),
+        },
+
+      }
     )
-  );
+      .then((response) => {
+        setrouteList(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
-  const ITEM_HEIGHT = 48;
-  const ITEM_PADDING_TOP = 8;
-  const MenuProps = {
-    PaperProps: {
-      style: {
-        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-        width: 250,
-      },
-    },
-  };
+  
+
+
+  // update rows after routeList has been updated
+  useEffect(() => {
+    if (routeList.length !== 0) {
+      setRows(
+        routeList.map((route) =>
+          createRows(
+            route.id,
+            route.name,
+            route.busStops.length,
+            route.originID,
+            route.destinationID,
+            null,
+            null,
+            route.busStops
+          )
+        )
+      );
+      setLoading(false);
+    }
+  }, [routeList]);
+
+  // const ITEM_HEIGHT = 48;
+  // const ITEM_PADDING_TOP = 8;
+  // const MenuProps = {
+  //   PaperProps: {
+  //     style: {
+  //       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+  //       width: 250,
+  //     },
+  //   },
+  // };
 
   const classes = useStyles();
   const classesUpdate = useStylesUpdate();
   const classesCreate = useStylesCreate();
 
-  let busStopsToDelete = rows
-    .filter((row) => row.routeId === selected[0])
-    .map((row) => ({ busStops: row.busStops, routeId: row.routeId }));
+  // let busStopsToDelete = rows
+  //   .filter((row) => row.routeId === selected[0])
+  //   .map((row) => ({ busStops: row.busStops, routeId: row.routeId }));
 
   // ******************************************************************
   // end of initial table state
@@ -193,14 +262,14 @@ const Routes = () => {
   // *****************************************************
   // functions, hooks for handling auto-suggest functions
   // *****************************************************
-  const handleChange = (Event) => {
-    const { name, value } = Event.target;
-    setCharCountAddBusStop(value ? value.length : 0);
-    if (name === "addBusStp") {
-      setAddBusStp(value);
-      setAddBusStop(value);
-    }
-  };
+  // const handleChange = (Event) => {
+  //   const { name, value } = Event.target;
+  //   setCharCountAddBusStop(value ? value.length : 0);
+  //   if (name === "addBusStp") {
+  //     setAddBusStp(value);
+  //     setAddBusStop(value);
+  //   }
+  // };
 
   useEffect(() => {
     if (selected.length === 1) {
@@ -211,20 +280,20 @@ const Routes = () => {
         if (busStop.name === addBusStop || busStop.name === addBusStp) {
           setAddBusStp("");
           setAddBusStop("");
-          setCharCountAddBusStop(0);
+          //setCharCountAddBusStop(0);
         }
       });
     }
   }, [addBusStop, addBusStp]);
 
-  const handleChangeCr = (Event) => {
-    const { name, value } = Event.target;
-    setCharCntAddBusStop(value ? value.length : 0);
-    if (name === "addBusStpCr") {
-      setAddBusStpCr(value);
-      setAddBusStopCr(value);
-    }
-  };
+  // const handleChangeCr = (Event) => {
+  //   const { name, value } = Event.target;
+  //   setCharCntAddBusStop(value ? value.length : 0);
+  //   if (name === "addBusStpCr") {
+  //     setAddBusStpCr(value);
+  //     setAddBusStopCr(value);
+  //   }
+  // };
 
   // ***************************************************************
   // end of functions, hooks for handling auto-suggest functions
@@ -241,8 +310,8 @@ const Routes = () => {
     setStartLocCreate("");
     setDestLocCreate("");
     setAddBusStopCr("");
-    setAddBusStpCr("");
-    setCharCntAddBusStop(0);
+    //setAddBusStpCr("");
+    // setCharCntAddBusStop(0);
     setCreateOpen(false);
   };
 
@@ -255,7 +324,7 @@ const Routes = () => {
 
   // function to create route
   const handleCreateRoute = () => {
-    const lastId = rows[rows.length - 1].routeId;
+    //const lastId = rows[rows.length - 1].routeId;
     if (
       (routeNameCreate,
       routeCodeCreate,
@@ -278,29 +347,63 @@ const Routes = () => {
         );
         return;
       }
+      Axios.post(
+        "https://cors-anywhere.herokuapp.com/" +
+          "https://phantom-backend.herokuapp.com/routes",
+        {
+          origin: parseFloat(startLocCreate),
+          destination: parseFloat(destLocCreate),
+          busStops: addBusStopCr.split(',').map(function(item) {
+            return parseInt(item, 10);
+          })
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("user"),
+          },
+        
+        }
+      ).then((response)=>{
+        console.log(response.data)
+        toast.success(`${response.data.message}`, {
+          position: "top-right",
+          autoClose: 4000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }).catch((error)=>{
+        
+        toast.error(`${error.message}`, {
+          position: "top-right",
+          autoClose: 4000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        
+      })
+      
+     
 
-      rows.push({
-        routeId: lastId + 1,
-        routeName: routeNameCreate,
-        routeLength: routeLengthCreate,
-        routeCode: routeCodeCreate,
-        busStopsCount: 1,
-        assignedBuses: parseFloat(assignedBusesCreate),
-        startLoc: parseFloat(startLocCreate),
-        destLoc: parseFloat(destLocCreate),
-        busStops: [
-          ...busStops
-            .filter(
-              (busStop) => busStop.name.indexOf(addBusStpCr.toString()) !== -1
-            )
-            .map((busStop) => ({
-              id: busStop.id,
-              name: busStop.name,
-              lat: busStop.lat,
-              long: busStop.long,
-            })),
-        ],
-      });
+      // rows.push({
+      //   //routeId: lastId + 1,
+      //   // routeName: routeNameCreate,
+      //   // routeLength: routeLengthCreate,
+      //   // routeCode: routeCodeCreate,
+      //   // busStopsCount: 1,
+      //   // assignedBuses: parseFloat(assignedBusesCreate),
+      //   origin: parseFloat(startLocCreate),
+      //   destination: parseFloat(destLocCreate),
+      //   busStops: addBusStopCr.split(',').map(function(item) {
+      //     return parseInt(item, 10);
+      //   })
+      // });
+      
 
       setRows(rows);
 
@@ -311,18 +414,10 @@ const Routes = () => {
       setStartLocCreate("");
       setDestLocCreate("");
       setAddBusStopCr("");
-      setAddBusStpCr("");
-      setCharCntAddBusStop(0);
+      //setAddBusStpCr("");
+      // setCharCntAddBusStop(0);
 
-      toast.success("Route created successfully", {
-        position: "top-right",
-        autoClose: 4000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      
 
       handleCreateClose();
     } else {
@@ -357,7 +452,46 @@ const Routes = () => {
           );
           return;
         }
-
+        Axios.patch(
+          "https://cors-anywhere.herokuapp.com/" +
+          `https://phantom-backend.herokuapp.com/routes/${selected[0]}`,
+          {
+            origin: parseFloat(startLocUpdate),
+            destination: parseFloat(destLocUpdate),
+            busStops: busStopsUpdate.split(',').map(function(item) {
+              return parseInt(item, 10);
+            })
+          },
+          {
+            headers: {
+              Authorization: localStorage.getItem("user"),
+            },
+          
+          }
+        ).then((response)=>{
+          console.log(response.data)
+          toast.success(`${response.data.message}`, {
+            position: "top-right",
+            autoClose: 4000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        }).catch((error)=>{
+          
+          toast.error(`${error.message}`, {
+            position: "top-right",
+            autoClose: 4000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+          
+        }) 
         rows[index].routeName = routeNameUpdate;
         rows[index].routeCode = routeCodeUpdate;
         rows[index].routeLength = routeLengthUpdate;
@@ -396,42 +530,59 @@ const Routes = () => {
 
         setRows(rows);
 
-        setCharCountAddBusStop(0);
-        setAddBusStop("");
-        setAddBusStp("");
-        setBusStopsUpdate([]);
-        setSelected([]);
+        //setCharCountAddBusStop(0);
+        
 
-        toast.success("Route updated successfully", {
-          position: "top-right",
-          autoClose: 4000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        
 
         handleClose();
       }
     });
   };
-
+ 
+  
+  
   // function to delete route(s)
   const deleteRow = (rowIds) => {
-    setRows([...rows.filter((row) => rowIds.indexOf(row.routeId) === -1)]);
-    setSelected([]);
-    toast.info("Route deleted successfully", {
-      position: "top-right",
-      autoClose: 4000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-  };
 
+    Axios.delete(
+      "https://cors-anywhere.herokuapp.com/" +
+        `https://phantom-backend.herokuapp.com/routes/${selected[0]}`,
+      {
+        headers: {
+          Authorization:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiZW1haWwiOiJndW5uZXJAZ21haWwuY29tIiwiaWF0IjoxNjA1ODQ5Mjg2fQ.ua5hc_bUGJar3kpxVRAa2L5ajxSxvq16yPNAJwjnZ1c",
+        },
+      }
+    ).then((repo)=>{ 
+      setRows([...rows.filter((row) => rowIds.indexOf(row.routeId) === -1)]);
+      setSelected([]);
+      
+      toast.success(`${repo.data.message}`, {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      console.log(repo.data)
+    
+    
+    
+    }).catch((error)=>{
+      toast.error(`${error.message}`, {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });})
+  };
+  
   return (
     <React.Fragment>
       <RouteWrapper data-testid="routes-wrapper">
@@ -459,7 +610,7 @@ const Routes = () => {
                     variant="outlined"
                     value={routeNameCreate}
                     onChange={(e) => setRouteNameCreate(e.target.value)}
-                    required={true}
+                    // required={true}
                   />
 
                   <TextField
@@ -469,8 +620,8 @@ const Routes = () => {
                     variant="outlined"
                     value={routeCodeCreate}
                     onChange={(e) => setRouteCodeCreate(e.target.value)}
-                    required={true}
-                  />
+                    // required={true}
+                  /> 
 
                   <TextField
                     id="outlined-basic"
@@ -488,9 +639,9 @@ const Routes = () => {
                     variant="outlined"
                     value={assignedBusesCreate}
                     onChange={(e) => setAssignedBusesCreate(e.target.value)}
-                    required={true}
+                    // required={true}
                     type="number"
-                  />
+                  /> 
 
                   <TextField
                     id="outlined-basic"
@@ -513,8 +664,17 @@ const Routes = () => {
                     required={true}
                     type="number"
                   />
+                  <TextField
+                    id="outlined-basic"
+                    inputProps={{ "data-testid": "add-bus-stp-cr" }}
+                    label="Add bus stop"
+                    variant="outlined"
+                    value={addBusStopCr}
+                    onChange={(e) => setAddBusStopCr(e.target.value)}
+                    required={true}
+                  />
 
-                  <FormControl className={classesCreate.formControl}>
+                  {/* <FormControl className={classesCreate.formControl}>
                     {charCntAddBusStop < 2 ? (
                       <TextField
                         id="standard-basic"
@@ -562,7 +722,7 @@ const Routes = () => {
                         )}
                       />
                     )}
-                  </FormControl>
+                  </FormControl> */}
 
                   <br />
                   <Button
@@ -666,8 +826,16 @@ const Routes = () => {
                     onChange={(e) => setDestLocUpdate(e.target.value)}
                     type="number"
                   />
+                  <TextField
+                    id="outlined-basic"
+                    inputProps={{ "data-testid": "add-bus-stp" }}
+                    label="add-bus-stp"
+                    variant="outlined"
+                    value={busStopsUpdate}
+                    onChange={(e) => setBusStopsUpdate(e.target.value)}
+                  />
 
-                  <FormControl className={classesUpdate.formControl}>
+                  {/* <FormControl className={classesUpdate.formControl}>
                     <InputLabel id="demo-mutiple-checkbox-label">
                       Delete a Bus Stop
                     </InputLabel>
@@ -746,7 +914,7 @@ const Routes = () => {
                         )}
                       />
                     )}
-                  </FormControl>
+                  </FormControl> */}
 
                   <br />
 
@@ -794,63 +962,73 @@ const Routes = () => {
             createModalOpen={createOpen}
             setCreateModalOpen={handleCreateOpen}
           />
+          {isLoading ? (
+            <div className={classes.circularProgress}>
+              <CircularProgress />
+            </div>
+          ) : (
+            <React.Fragment>
+              <TableContainer>
+                <Table
+                  stickyHeader
+                  className={classes.table}
+                  aria-labelledby="tableTitle"
+                  size="medium"
+                  aria-label="enhanced table"
+                >
+                  <EnhancedTableHead
+                    hasEmptyCell={true}
+                    classes={classes}
+                    numSelected={selected.length}
+                    order={order}
+                    orderBy={orderBy}
+                    onSelectAllClick={handleSelectAllClick}
+                    onRequestSort={handleRequestSort}
+                    rowCount={rows.length}
+                    headCells={headCells}
+                    indexNumericSort={indexNumericSort}
+                    indexCharSort={indexCharSort}
+                  />
+                  <TableBody>
+                    {/* generate route rows from the "rows" variable */}
+                    {stableSort(rows, getComparator(order, orderBy))
+                      .slice(
+                        page * rowsPerPage,
+                        page * rowsPerPage + rowsPerPage
+                      )
+                      .map((route, index) => {
+                        const isItemSelected = isSelected(route.routeId);
+                        const labelId = `enhanced-table-checkbox-${route.routeId}`;
+                        return (
+                          <Row
+                            index={index}
+                            key={route.routeId}
+                            route={route}
+                            rowLength={route.busStops.length}
+                            isItemSelected={isItemSelected}
+                            labelId={labelId}
+                            handleClick={handleClick}
+                          />
+                        );
+                      })}
+                    {emptyRows > 0 && (
+                      <TableRow style={{ height: 53 * emptyRows }}>
+                        <TableCell colSpan={7} />
+                      </TableRow>
+                    )}
+                  </TableBody>
+                </Table>
+              </TableContainer>
 
-          <TableContainer>
-            <Table
-              stickyHeader
-              className={classes.table}
-              aria-labelledby="tableTitle"
-              size="medium"
-              aria-label="enhanced table"
-            >
-              <EnhancedTableHead
-                hasEmptyCell={true}
-                classes={classes}
-                numSelected={selected.length}
-                order={order}
-                orderBy={orderBy}
-                onSelectAllClick={handleSelectAllClick}
-                onRequestSort={handleRequestSort}
-                rowCount={rows.length}
-                headCells={headCells}
-                indexNumericSort={indexNumericSort}
-                indexCharSort={indexCharSort}
+              <TablePagination
+                rows={rows}
+                page={page}
+                rowsPerPage={rowsPerPage}
+                handleChangePage={handleChangePage}
+                handleChangeRowsPerPage={handleChangeRowsPerPage}
               />
-              <TableBody>
-                {/* generate route rows from the "rows" variable */}
-                {stableSort(rows, getComparator(order, orderBy))
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((route, index) => {
-                    const isItemSelected = isSelected(route.routeId);
-                    const labelId = `enhanced-table-checkbox-${route.routeId}`;
-                    return (
-                      <Row
-                        index={index}
-                        key={route.routeId}
-                        route={route}
-                        rowLength={route.busStops.length}
-                        isItemSelected={isItemSelected}
-                        labelId={labelId}
-                        handleClick={handleClick}
-                      />
-                    );
-                  })}
-                {emptyRows > 0 && (
-                  <TableRow style={{ height: 53 * emptyRows }}>
-                    <TableCell colSpan={7} />
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
-          </TableContainer>
-
-          <TablePagination
-            rows={rows}
-            page={page}
-            rowsPerPage={rowsPerPage}
-            handleChangePage={handleChangePage}
-            handleChangeRowsPerPage={handleChangeRowsPerPage}
-          />
+            </React.Fragment>
+          )}
         </Paper>
         {/* end of routes table */}
       </RouteWrapper>

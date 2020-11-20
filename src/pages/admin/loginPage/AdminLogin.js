@@ -152,7 +152,7 @@ const AdminLogin = (props) => {
         .then((response) => {
           if (response.status == 200) {
             toast.success(response.data.message);
-            localStorage.setItem("user", JSON.stringify(response.data));
+            localStorage.setItem("user", response.data.token);
             setState({ ...state, loading: false });
             setTimeout(function () {
               setState({

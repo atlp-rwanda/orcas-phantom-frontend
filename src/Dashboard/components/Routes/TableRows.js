@@ -95,7 +95,7 @@ const Row = (props) => {
           {route.routeName}
         </TableCell>
         <TableCell align="center">{route.busStopsCount}</TableCell>
-        <TableCell align="center">{route.assignedBuses}</TableCell>
+        {/* <TableCell align="center">{route.assignedBuses}</TableCell> */}
         <TableCell align="center" padding="default">
           {route.startLoc}
         </TableCell>
@@ -113,9 +113,9 @@ const Row = (props) => {
                 <TableHead>
                   <TableRow>
                     <TableCell align="center">id</TableCell>
-                    <TableCell>Name</TableCell>
+                    {/* <TableCell>Name</TableCell>
                     <TableCell align="center">Lat</TableCell>
-                    <TableCell align="center">Long</TableCell>
+                    <TableCell align="center">Long</TableCell> */}
                   </TableRow>
                 </TableHead>
 
@@ -123,14 +123,14 @@ const Row = (props) => {
                   {route.busStops.map((busStop, index) => (
                     <TableRow
                       className={index === rowLength - 1 ? classes.drop : ""}
-                      key={busStop.id}
+                      key={busStop}
                     >
                       <TableCell component="th" scope="row" align="center">
-                        {busStop.id}
+                        {busStop}
                       </TableCell>
-                      <TableCell>{busStop.name}</TableCell>
-                      <TableCell align="center">{busStop.lat}</TableCell>
-                      <TableCell align="center">{busStop.long}</TableCell>
+                      {/* <TableCell>{"null"}</TableCell>
+                      <TableCell align="center">{"null"}</TableCell>
+                      <TableCell align="center">{"null"}</TableCell> */}
                     </TableRow>
                   ))}
                 </TableBody>

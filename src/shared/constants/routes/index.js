@@ -1,7 +1,6 @@
 export const tableHeaders = [
   "Route Name",
   "No of Bus Stops",
-  "Assigned Buses",
   "Start Location",
   "Destination Point",
 ];
@@ -216,12 +215,6 @@ export const headCells = [
     numeric: true,
     disablePadding: false,
     label: "No of Bus Stops",
-  },
-  {
-    id: "assignedBuses",
-    numeric: true,
-    disablePadding: false,
-    label: "Assigned Buses",
   },
   {
     id: "startLoc",

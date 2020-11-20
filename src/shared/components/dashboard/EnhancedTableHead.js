@@ -65,7 +65,7 @@ function EnhancedTableHead(props) {
                           : "null-again"
                   }
                 >
-                  {headCell.label}
+                  <strong>{headCell.label}</strong>
                   {orderBy === headCell.id ? (
                     <span className={classes.visuallyHidden}>
                       {order === "desc"

@@ -40,6 +40,14 @@ export const useStyles = makeStyles((theme) => ({
     top: 20,
     width: 1,
   },
+  circularProgress: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    "& > * + *": {
+      marginLeft: theme.spacing(2),
+    },
+  },
 }));
 
 // update modal styles
