@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import directionIcon from "App/assets/images/direction-icon.svg";
 import backButton from "App/assets/images/back-button-homepage.svg";
 import PropTypes from "prop-types";
-import originData from "shared/constants/originBusStops.js";
-import destinationData from "shared/constants/destBusStops.js";
+// import { bsData } from "shared/constants/destBusStops.js";
 import { TextField } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import LogoDark from "App/assets/images/phantom-logo-blue.svg";
 import LogoWhite from "App/assets/images/phantom-logo-white.svg";
 import {
@@ -16,9 +17,48 @@ import {
   RouteName,
   RouteWrapper,
   BusDetails,
+  useStyles,
 } from "shared/styles/homepageStyles";
 
 const SearchPanel = (props) => {
+  const classes = useStyles();
+  const [isLoading, setLoading] = useState(true);
+  const [originData, setOriginData] = useState([]);
+  const [destinationData, setDestinationData] = useState([]);
+
+  // fetch bus stops
+  useEffect(() => {
+    axios
+      .get(
+        "https://cors-anywhere.herokuapp.com/" +
+          "https://phantom-backend.herokuapp.com/busstop",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization:
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiZW1haWwiOiJndW5uZXJAZ21haWwuY29tIiwiaWF0IjoxNjA1NzI3MTIwfQ.L1ajl88wnXmfAgDF-wSCRP4PGBzQUNfrwO3aMghlte4",
+          },
+        }
+      )
+      .then((busStops) => {
+        setDestinationData(
+          busStops.data.map((busStop) => ({
+            ...busStop,
+            value: busStop.busStopName,
+          }))
+        );
+        setOriginData(
+          busStops.data.map((busStop) => ({
+            ...busStop,
+            value: busStop.busStopName,
+          }))
+        );
+        setLoading(false);
+      })
+      .catch((e) => console.log(e));
+  }, []);
+
   const toggle = () => {
     props.setState({
       ...props.data,
@@ -115,107 +155,115 @@ const SearchPanel = (props) => {
               <div className="direction-icon">
                 <img src={directionIcon} />
               </div>
-              <div className="input-fields-wrapper">
-                <OriginInput id="origin">
-                  {props.data.charCountOrigin < 2 ? (
-                    <TextField
-                      id="standard-basic"
-                      name="origin"
-                      label="Departure"
-                      type="text"
-                      style={{ width: "100%" }}
-                      margin="dense"
-                      inputProps={{ "data-testid": "origin" }}
-                      value={origin}
-                      onChange={handleChange}
-                      autoFocus={true}
-                      required={true}
-                    />
-                  ) : (
-                    <Autocomplete
-                      disablePortal
-                      type="text"
-                      name="origin"
-                      style={{ width: "100%" }}
-                      value={orig}
-                      onChange={(event, newValue) => {
-                        setOrig(newValue);
-                        handleChangeAuto("origin", newValue);
-                      }}
-                      inputValue={origin}
-                      onInputChange={(event, newInputValue) => {
-                        setOrigin(newInputValue);
-                        handleChangeAuto("origin", newInputValue);
-                      }}
-                      freeSolo={true}
-                      options={originData.map((option) => option.label)}
-                      renderInput={(params) => (
-                        <TextField
-                          {...params}
-                          label="Departure"
-                          autoFocus={true}
-                          required={true}
-                          inputProps={{
-                            ...params.inputProps,
-                            type: "search",
-                            "data-testid": "origin",
-                          }}
-                        />
-                      )}
-                      required
-                    />
-                  )}
-                </OriginInput>
-                <DestinationInput id="destination">
-                  {props.data.charCountDest < 2 ? (
-                    <TextField
-                      id="standard-basic"
-                      inputProps={{ "data-testid": "destination" }}
-                      value={destination}
-                      type="text"
-                      style={{ width: "100%" }}
-                      name="destination"
-                      label="Destination"
-                      margin="normal"
-                      onChange={handleChange}
-                      autoFocus={true}
-                      required={true}
-                    />
-                  ) : (
-                    <Autocomplete
-                      disablePortal
-                      type="text"
-                      name="destination"
-                      style={{ width: "100%" }}
-                      value={dst}
-                      onChange={(event, newValue) => {
-                        setDst(newValue);
-                        handleChangeAuto("destination", newValue);
-                      }}
-                      inputValue={destination}
-                      onInputChange={(event, newInputValue) => {
-                        setDest(newInputValue);
-                        handleChangeAuto("destination", newInputValue);
-                      }}
-                      freeSolo={true}
-                      options={destinationData.map((option) => option.label)}
-                      renderInput={(params) => (
-                        <TextField
-                          {...params}
-                          label="Destination"
-                          autoFocus={true}
-                          required={true}
-                          inputProps={{
-                            ...params.inputProps,
-                            type: "search",
-                            "data-testid": "destination",
-                          }}
-                        />
-                      )}
-                    />
-                  )}
-                </DestinationInput>
-              </div>
+              {isLoading ? (
+                <div className={classes.root}>
+                  <CircularProgress />
+                </div>
+              ) : (
+                <div className="input-fields-wrapper">
+                  <OriginInput id="origin">
+                    {props.data.charCountOrigin < 2 ? (
+                      <TextField
+                        id="standard-basic"
+                        name="origin"
+                        label="Departure"
+                        type="text"
+                        style={{ width: "100%" }}
+                        margin="dense"
+                        inputProps={{ "data-testid": "origin" }}
+                        value={origin}
+                        onChange={handleChange}
+                        autoFocus={true}
+                        required={true}
+                      />
+                    ) : (
+                      <Autocomplete
+                        disablePortal
+                        type="text"
+                        name="origin"
+                        style={{ width: "100%" }}
+                        value={orig}
+                        onChange={(event, newValue) => {
+                          setOrig(newValue);
+                          handleChangeAuto("origin", newValue);
+                        }}
+                        inputValue={origin}
+                        onInputChange={(event, newInputValue) => {
+                          setOrigin(newInputValue);
+                          handleChangeAuto("origin", newInputValue);
+                        }}
+                        freeSolo={true}
+                        options={originData.map((option) => option.busStopName)}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            label="Departure"
+                            autoFocus={true}
+                            required={true}
+                            inputProps={{
+                              ...params.inputProps,
+                              type: "search",
+                              "data-testid": "origin",
+                            }}
+                          />
+                        )}
+                        required
+                      />
+                    )}
+                  </OriginInput>
+                  <DestinationInput id="destination">
+                    {props.data.charCountDest < 2 ? (
+                      <TextField
+                        id="standard-basic"
+                        inputProps={{ "data-testid": "destination" }}
+                        value={destination}
+                        type="text"
+                        style={{ width: "100%" }}
+                        name="destination"
+                        label="Destination"
+                        margin="normal"
+                        onChange={handleChange}
+                        autoFocus={true}
+                        required={true}
+                      />
+                    ) : (
+                      <Autocomplete
+                        disablePortal
+                        type="text"
+                        name="destination"
+                        style={{ width: "100%" }}
+                        value={dst}
+                        onChange={(event, newValue) => {
+                          setDst(newValue);
+                          handleChangeAuto("destination", newValue);
+                        }}
+                        inputValue={destination}
+                        onInputChange={(event, newInputValue) => {
+                          setDest(newInputValue);
+                          handleChangeAuto("destination", newInputValue);
+                        }}
+                        freeSolo={true}
+                        options={destinationData.map(
+                          (option) => option.busStopName
+                        )}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            label="Destination"
+                            autoFocus={true}
+                            required={true}
+                            inputProps={{
+                              ...params.inputProps,
+                              type: "search",
+                              "data-testid": "destination",
+                            }}
+                          />
+                        )}
+                      />
+                    )}
+                  </DestinationInput>
+                </div>
+              )}
             </div>
           </form>
         </div>
