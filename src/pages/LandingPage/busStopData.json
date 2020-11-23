@@ -1,0 +1,278 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "DownTown taxi-park"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.057085007429123,
+          -1.9435460817870298
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kwa Rubangura"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.06087899208069,
+          -1.9432579101656284
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "payage KN 3 Road"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.072745084762573,
+          -1.9504849714961896
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Mukanogo"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.073753595352173,
+          -1.9549938271268608
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kimihurura- cadilac"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.07575988769531,
+          -1.947262821125844
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kimihurura- IFAC"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.078232884407043,
+          -1.945713398870056
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kimihurura-Kumurenge"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.08386015892029,
+          -1.949938117791298
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "KBC"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.091477632522583,
+          -1.9526831071436679
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kigali-height"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.09247004985809,
+          -1.9523238998074737
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Meze fresh"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.094658732414246,
+          -1.9524632937082451
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Gishushu-minijuste"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.097255110740665,
+          -1.9536910317963818
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Gishushu-RDB"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.102335214614868,
+          -1.9537821738894343
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Chez Landon"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.108203887939453,
+          -1.9596688703536391
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kisimenti"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.11000096797943,
+          -1.9589987101412853
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Remera-RBC"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.11156469583511,
+          -1.957953259674685
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Remera- amahoro stadium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.115279555320736,
+          -1.9564440569535722
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Rwandex"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.087239742279053,
+          -1.9693459538757756
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sonatube"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.101793408393856,
+          -1.968000279691233
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Goodyear"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.108482837677,
+          -1.9632823695944033
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Prince house"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.11410474777222,
+          -1.9605910103673754
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+      "name": "Remera Taxi-park"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.11904537677765,
+          -1.958711881488463
+        ]
+      }
+    }
+  ]
+}
