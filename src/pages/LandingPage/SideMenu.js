@@ -17,20 +17,20 @@ const SideMenu = (props) => {
   };
 
   return (
-    <div>
+    <div className={`navbarLanding ${props.data.isNavToggled ? "" : "navbarLandingShow"}`}>
       <ul
         data-testid="navbar"
         style={{ display: props.data.isNavToggled ? "flex" : "none" }}
         className="navbar"
       >
-        {props.data.isNavToggled ? (
-          <img
-            onClick={toggle}
-            data-testid="navbar-hide-icon"
-            className="back-btn"
-            src={backButton}
-          />
-        ) : null}
+       
+        <img
+          onClick={toggle}
+          data-testid="navbar-hide-icon"
+          className="back-btn"
+          src={backButton}
+        />
+        
 
         <img src={closeIcon} className="close-btn" onClick={toggle} />
 
