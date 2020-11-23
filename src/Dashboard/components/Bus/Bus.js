@@ -157,10 +157,12 @@ export default function Bus() {
 
     paper: {
       width: "100%",
+      height: "100%",
       marginBottom: theme.spacing(2),
     },
     table: {
       minWidth: 750,
+      height: "100%",
     },
     visuallyHidden: {
       border: 0,
