@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
 import L, { Icon } from "leaflet";
 import PropTypes from "prop-types";
-// import originIcon from "App/assets/images/origin.svg";
-// import destinationIcon from "App/assets/images/destination.svg";
+
 import busStopsData from "./busStopData.json";
 import busStopIcon from "../../App/assets/images/bus-stop6.svg";
 
@@ -19,7 +18,7 @@ const stopIcon = new Icon({
 });
 
 const MapComponent = () => {
-  function onEachFeature(feature, layer) {
+  const onEachFeature=(feature, layer) =>{
     layer.setIcon(stopIcon);
     layer.bindPopup(`<p>Name: ${feature.properties.name}</p>`);
   }
