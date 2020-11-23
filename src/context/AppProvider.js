@@ -12,6 +12,7 @@ const store = {
       lng: 30.0609378
     }
   },
+  sampleLocation: [],
   charCountOrigin: 0,
   charCountDest: 0,
   origin: "",
