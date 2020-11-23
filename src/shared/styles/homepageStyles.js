@@ -1,4 +1,5 @@
 import Styled from "@emotion/styled";
+import { makeStyles } from "@material-ui/core/styles";
 // import LogoImage from "App/assets/images/phantom-logo-blue.svg";
 
 // Bus Info
@@ -22,7 +23,7 @@ export const BusInfoToast = Styled.div`
   z-index: 99999;
   position: absolute;
   bottom: 5em;
-  left: 43%;
+  left: 40%;
   margin: 0 auto;
   padding: 1.5em;
   width: fit-content;
@@ -33,11 +34,9 @@ export const BusInfoToast = Styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   > div:first-of-type {
     margin-right: 2em;
   }
-
   @media(max-width: 768px) {
     border-radius: 0px;
     bottom: 0px;
@@ -154,7 +153,6 @@ export const RouteWrapper = Styled.div`
 
 export const BusDetails = Styled.div`
   padding: 0px 1em 5em 1em;
-
   @media(max-width: 768px) {
     background: white;
     z-index: 999999;
@@ -207,3 +205,16 @@ export const SearchWrapper = Styled.div`
 export const SearchInput = Styled.div`
 	flex: 1;
 `;
+
+export const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    height: "100%",
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    "& > * + *": {
+      marginLeft: theme.spacing(2),
+    },
+  },
+}));
