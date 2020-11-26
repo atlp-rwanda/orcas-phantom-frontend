@@ -100,6 +100,7 @@
     "jest": "^26.4.2",
     "jest-emotion": "^10.0.32",
     "jest-styled-components": "^7.0.3",
+    "jquery": "^3.5.1",
     "mini-css-extract-plugin": "^0.11.2",
     "nodemon": "^2.0.4",
     "prettier": "^2.1.2",
