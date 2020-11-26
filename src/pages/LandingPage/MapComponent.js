@@ -121,10 +121,10 @@ const MapComponent = () => {
         draggableWaypoints: false
       })
       .addTo(map);
-
+      
     routeData.forEach((route) => {
       const wayPoints = [];
-      route.routes.geometry.coordinates.map((coords) => {
+      route.routes.geometry.coordinates.forEach((coords) => {
         wayPoints.push(coords);
       });
 
@@ -154,9 +154,9 @@ const MapComponent = () => {
 
     const busMarker = L.marker(bus.currentLocation, { icon: myBusIcon });
 
-    busMarker.addTo(map);
-    busMarker.bindPopup(`Bus Name: ${bus.name} Plate No: ${bus.PlateNumber}`)
-    busMarker.bindTooltip(`Bus Current Location: ${bus.currentLocation}`)
+    busMarker.addTo(map)
+      .bindPopup(`Bus Name:${bus.name} Plate Number:${bus.PlateNumber} `)
+      .bindTooltip(`Current Location: ${bus.currentLocation}`)
 
     for (let i = 0; i < route1.length; i++) {
       task(i);
@@ -164,7 +164,7 @@ const MapComponent = () => {
 
     function task(i) {
       setTimeout(function() {
-        busMarker.setLatLng(route1[i]);
+        busMarker.setLatLng(route1[i]) ;
       }, 3000 * i);
     }
   });
