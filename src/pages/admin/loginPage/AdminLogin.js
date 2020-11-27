@@ -152,7 +152,8 @@ const AdminLogin = (props) => {
         .then((response) => {
           if (response.status == 200) {
             toast.success(response.data.message);
-            localStorage.setItem("user", JSON.stringify(response.data));
+            localStorage.setItem("user", response.data.token);
+            localStorage.setItem("role", response.data.role);
             setState({ ...state, loading: false });
             setTimeout(function () {
               setState({
@@ -160,6 +161,7 @@ const AdminLogin = (props) => {
                 email: "",
                 password: "",
                 currentUser: localStorage.getItem("user"),
+                currentRole: localStorage.getItem("role"),
               });
               props.history.push("/admin");
             }, 3000);

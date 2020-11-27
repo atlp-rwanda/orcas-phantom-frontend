@@ -163,7 +163,8 @@ const SideMenu = () => {
               </SidemenuItemText>
             </SidemenuItem>
             <SidemenuItem
-              data-testid="users"
+              data-testid="users-link"
+              testID="users-link"
               style={{
                 color:
                   dashboardState.currentPage === "users" && "rgb(136, 211, 98)",
