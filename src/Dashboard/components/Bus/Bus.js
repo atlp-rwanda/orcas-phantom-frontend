@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 
 // import Header from "shared/styles/dashboard/generalStyles";
 // import Nav from "./nav"
@@ -13,91 +13,46 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Checkbox from "@material-ui/core/Checkbox";
+import { CircularProgress } from "@material-ui/core";
 import EnhancedTableHead from "shared/components/dashboard/EnhancedTableHead";
 import EnhancedTableToolbar from "shared/components/dashboard/EnhancedTableToolbar";
 import TablePagination from "shared/components/dashboard/TablePagination";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
-import { Autocomplete } from "@material-ui/lab";
 import Fade from "./FadeComponent";
 import TextField from "@material-ui/core/TextField";
-import FormControl from "@material-ui/core/FormControl";
 import Button from "@material-ui/core/Button";
 import CancelIcon from "@material-ui/icons/Cancel";
 import SaveIcon from "@material-ui/icons/Save";
 import AddIcon from "@material-ui/icons/Add";
 import { ToastContainer, toast } from "react-toastify";
-const SampleRoute = [
-  {
-    id: 12,
-    routeName: "Kacyiru - Kimironko",
-    routeLength: "5km",
-    routeCode: "REM - DOWN",
-    busStopsCount: 13,
-    assignedBuses: 10,
-    startLoc: 6.0,
-    destLoc: 24,
-    busStops: [
-      { id: 1, name: "City Plaza", lat: -1, long: 30 },
-      { id: 2, name: "Camp Kigali", lat: -1, long: 30 },
-      { id: 3, name: "Kimironko", lat: -1, long: 30 },
-    ],
-  },
-  {
-    id: 13,
-    routeName: "Kacyiru - Nyabugogo",
-    routeLength: "5km",
-    routeCode: "REM - DOWN",
-    busStopsCount: 13,
-    assignedBuses: 10,
-    startLoc: 6.0,
-    destLoc: 24,
-    busStops: [
-      { id: 1, name: "City Plaza", lat: -1, long: 30 },
-      { id: 2, name: "Camp Kigali", lat: -1, long: 30 },
-      { id: 3, name: "Kimironko", lat: -1, long: 30 },
-    ],
-  },
-  {
-    id: 14,
-    routeName: "Nyabugogo - Kimironko",
-    routeLength: "5km",
-    routeCode: "REM - DOWN",
-    busStopsCount: 13,
-    assignedBuses: 10,
-    startLoc: 6.0,
-    destLoc: 24,
-    busStops: [
-      { id: 1, name: "City Plaza", lat: -1, long: 30 },
-      { id: 2, name: "Camp Kigali", lat: -1, long: 30 },
-      { id: 3, name: "Kimironko", lat: -1, long: 30 },
-    ],
-  },
-];
+import Axios from "axios";
 
 export default function Bus() {
   const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("calories");
+  const [orderBy, setOrderBy] = React.useState("id");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [open, setOpen] = useState(false);
+  const [isLoading, setLoading] = useState(true);
 
-  const [licenceUpdate, setLicenceUpdate] = useState("");
+
+  const [busPlateUpdate, setBusPlateUpdate] = useState("");
+  const [routIdUpdate, setRoutIdUpdate] = useState();
   const [busStatusUpdate, setBusStatusUpdate] = useState("");
-  const [assignedRouteUpdate, setassignedRouteUpdate] = useState("");
-  const [assignedRouteUpdateInpt, setassignedRouteUpdateInpt] = useState("");
-  const [
-    charCountAssignedRouteupdate,
-    setCharCountAssigneRouteupdate,
-  ] = useState(0);
+  const [currentLocationUpdate, setCurrentLocationUpdate] = useState("");
+
+  
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const handleCancel = () => {
-    setLicenceUpdate("");
-    setassignedRouteUpdate("");
-    setassignedRouteUpdateInpt("");
-    setCharCountAssigneRouteupdate(0);
+    
+    setBusPlateUpdate("");
+    setRoutIdUpdate();
+    setBusStatusUpdate("");
+    setCurrentLocationUpdate("");
+   
     setOpen(false);
   };
 
@@ -105,54 +60,73 @@ export default function Bus() {
   useEffect(() => {
     if (selected.length === 1) {
       const selectedBus = rows.filter(
-        (bus) => bus.ID === selected[0]
+        (bus) => bus.id === selected[0]
       );
 
-      setLicenceUpdate(selectedBus[0].Licence_Number);
-      setBusStatusUpdate(selectedBus[0].Status);
-      
+      setBusPlateUpdate(selectedBus[0].bus_plate);
+      setRoutIdUpdate((selectedBus[0].routId));
+      setBusStatusUpdate(selectedBus[0].bus_status);
+      setCurrentLocationUpdate(selectedBus[0].currentLocation);
+
     }
   }, [selected]);
-
   const [rows, setRows] = useState([
-    createData(1, "RAA279W", "Nyabugogo_kacyiru_Remera", "inactive"),
-    createData(2, "RAA279W", "Nyabugogo_kinamba_kagugu", "inactive"),
-    createData(3, "RAA279W", "Nyabugogo_gatenga_nyanza", "inactive"),
-    createData(4, "RAA279W", "Nyabugogo_kimisagara_Nyamirambo", "inactive"),
-    createData(5, "RAA279W", "Nyabugogo_karuruma_Gatsata", "inactive"),
-    createData(6, "RAA279W", "Nyabugogo_kacyiru_Remera", "inactive"),
-    createData(7, "RAA279W", "Nyabugogo_kinamba_kagugu", "inactive"),
-    createData(9, "RAA279W", "Nyabugogo_gatenga_nyanza", "inactive"),
-    createData(10, "RAA279W", "Nyabugogo_kimisagara_Nyamirambo", "inactive"),
-    createData(11, "RAA279W", "Nyabugogo_karuruma_Gatsata", "inactive"),
+
   ]);
+  console.log(rows);
+
+  useEffect(() => {
+    Axios.get(
+      "http://localhost:9000/buses",
+      {
+        headers: {
+          Authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiZW1haWwiOiJndW5uZXJAZ21haWwuY29tIiwiaWF0IjoxNjA3MDAwNzUwfQ.LV5sOR3bll3wVT95UDKRdaVWXVUSFet1e29a87dmplQ"
+        },
+      }
+    )
+      .then((response) => {
+        setRows(response.data.buses);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
+
+
 
   const indexNumericSort = 0;
-  const indexCharSort = 1; 
+  const indexCharSort = 1;
   const headCells = [
     {
-      id: "ID",
+      id: "id",
       numeric: true,
       disablePadding: false,
       label: "Bus ID",
     },
     {
-      id: "Licence_Number",
+      id: "bus_plate",
       numeric: false,
       disablePadding: false,
-      label: "Licence Number",
+      label: "Bus Plate",
     },
     {
-      id: "Assigned_Route",
+      id: "routId",
       numeric: false,
       disablePadding: false,
-      label: "Assigned Route",
+      label: "Route ID ",
     },
     {
-      id: "Status",
+      id: "bus_status",
       numeric: false,
       disablePadding: false,
-      label: "Status",
+      label: "Bus Status",
+    },
+    {
+      id: "currentLocation",
+      numeric: false,
+      disablePadding: false,
+      label: "Current Location",
     },
   ];
 
@@ -206,10 +180,6 @@ export default function Bus() {
     },
   }));
   const classes = useStyles();
-
-  function createData(ID, Licence_Number, Assigned_Route, Status) {
-    return { ID, Licence_Number, Assigned_Route, Status };
-  }
 
   function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
@@ -277,61 +247,58 @@ export default function Bus() {
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
   const deleteRow = (rowIds) => {
-    setRows([...rows.filter((row) => rowIds.indexOf(row.ID) === -1)]);
+    setRows([...rows.filter((row) => rowIds.indexOf(row.id) === -1)]);
     setSelected([]);
   };
 
-  const [createLicence, setCreateLicence] = useState("");
-  const [createAssignedRoute, setCreateAssignedRoute] = useState("");
-  const [createAssignedRouteInp, setCreateAssignedRouteInp] = useState("");
-  const [charCountAssignedRoute, setCharCountAssigneRoute] = useState("");
+  const [createBusPlate, setCreateBusPlate] = useState("");
+  const [createRouteID, setCreateRouteID] = useState();
   const [createBusStatus, setCreateBusStatus] = useState("");
+  const [createCurrentLocation, setCreateCurrentLocation] = useState("");
   const [createOpen, setCreateOpen] = useState(false);
   const handleCreateOpen = () => setCreateOpen(true);
   const handleCreateClose = () => setCreateOpen(false);
   const handleCreateCancel = () => {
-    setCreateLicence("");
-    setCreateAssignedRoute("");
-    setCreateAssignedRouteInp("");
-    setCharCountAssigneRoute(0);
+    setCreateBusPlate("");
+    setCreateRouteID();
+    setCreateBusStatus("");
+    setCreateCurrentLocation("");
     setCreateOpen(false);
   };
-  const handleChange = (Event) => {
-    const { name, value } = Event.target;
-    setCharCountAssigneRouteupdate(value ? value.length : 0);
-    if (name === "assignedRouteUpdate") {
-      setassignedRouteUpdate(value);
-      setassignedRouteUpdateInpt(value);
-    }
-  };
-  const handleChangeCr = (Event) => {
-    const { name, value } = Event.target;
-    setCharCountAssigneRoute(value ? value.length : 0);
-    if (name === "createAssignedRoute") {
-      setCreateAssignedRoute(value);
-      setCreateAssignedRouteInp(value);
-    }
-  };
   const handleCreateBus = () => {
-    const lastId = rows[rows.length - 1].ID;
-    if (createLicence && createBusStatus && createAssignedRoute){
-      rows.push({
-        ID: lastId + 1,
-        Licence_Number: createLicence,
-        Status: createBusStatus,
-        Assigned_Route: createAssignedRoute,
-      });
-    
+    if (createBusPlate && createRouteID && createBusStatus && createCurrentLocation) {
+      Axios({
+        method: "POST",
+        url: "http://localhost:9000/buses",
+        headers: {
+          Authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiZW1haWwiOiJndW5uZXJAZ21haWwuY29tIiwiaWF0IjoxNjA3MDAwNzUwfQ.LV5sOR3bll3wVT95UDKRdaVWXVUSFet1e29a87dmplQ",
+
+        },
+        data: {
+          bus_plate: createBusPlate,
+          routId: createRouteID,
+          bus_status: createBusStatus,
+          currentLocation: createCurrentLocation,
+        },
+      })
+        .then((response) => {
+          console.log(response.data);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+
+
       setRows(rows);
 
-      setCreateLicence("");
       setCreateBusStatus("");
-      setCreateAssignedRoute("");
-      setCreateAssignedRouteInp("");
-      setCharCountAssigneRoute(0);
+      setCreateRouteID("");
+      setCreateBusStatus("");
+      setCreateCurrentLocation("");
 
       handleCreateClose();
-    } else{
+    } else {
       toast.error(
         "all field must be filled",
         {
@@ -347,20 +314,36 @@ export default function Bus() {
     }
   }
   const handleSave = () => {
-    rows.forEach((bus, index) => {
-      if (bus.ID === selected[0]) {
-        rows[index].Licence_Number = licenceUpdate;
-        rows[index].Status = busStatusUpdate;
+    rows.forEach((bus) => {
+      if (bus.id === selected[0]) {
+        Axios({
+          method: "patch",
+          url: "http://localhost:80/buses/"+ bus.id,
+          headers: {
+            Authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiZW1haWwiOiJndW5uZXJAZ21haWwuY29tIiwiaWF0IjoxNjA3MDAwNzUwfQ.LV5sOR3bll3wVT95UDKRdaVWXVUSFet1e29a87dmplQ",
 
-        if (assignedRouteUpdate) {
-          rows[index].Assigned_Route = assignedRouteUpdate;
-        }
+          },
+          data: {
+            bus_plate: busPlateUpdate,
+            routId: routIdUpdate,
+            bus_status: busStatusUpdate,
+            currentLocation: currentLocationUpdate,
+          },
+        })
+          .then((response) => {
+            console.log(response.data);
+            setLoading(false);
+          })
+          .catch((err) => {
+            console.log(err.message);
+          });
 
         setRows(rows);
 
-        setCharCountAssigneRouteupdate(0);
-        setassignedRouteUpdateInpt("");
-        setassignedRouteUpdate("");
+        setBusPlateUpdate("");
+        setRoutIdUpdate();
+        setBusStatusUpdate("");
+        setCurrentLocationUpdate("");
         setSelected([]);
 
         handleClose();
@@ -387,11 +370,20 @@ export default function Bus() {
               <form className={classes.rootCreate} noValidate>
                 <TextField
                   id="outlined-basic"
-                  inputProps={{ "data-testid": "bus-licence-create" }}
-                  label="Licence Number"
+                  inputProps={{ "data-testid": "bus-plate-create" }}
+                  label="Bus Plate"
                   variant="outlined"
-                  value={createLicence}
-                  onChange={(e) => setCreateLicence(e.target.value)}
+                  value={createBusPlate}
+                  onChange={(e) => setCreateBusPlate(e.target.value)}
+                  required={true}
+                />
+                <TextField
+                  id="outlined-basic"
+                  inputProps={{ "data-testid": "bus-routeId-create" }}
+                  label="Route ID"
+                  variant="outlined"
+                  value={createRouteID}
+                  onChange={(e) => setCreateRouteID(e.target.value)}
                   required={true}
                 />
                 <TextField
@@ -403,60 +395,15 @@ export default function Bus() {
                   onChange={(e) => setCreateBusStatus(e.target.value)}
                   required={true}
                 />
-
-                <FormControl className={classes.formControl}>
-                  {charCountAssignedRoute < 2 ? (
-                    <TextField
-                      id="standard-basic"
-                      name="createAssignedRoute"
-                      label="Add an Assigned Route"
-                      type="text"
-                      style={{ width: "100%" }}
-                      margin="dense"
-                      inputProps={{ "data-testid": "add-Assigned-Route-cr" }}
-                      value={createAssignedRoute}
-                      onChange={handleChangeCr}
-                      autoFocus={true}
-                      required={true}
-                    />
-                  ) : (
-                    <Autocomplete
-                      type="text"
-                      name="createAssignedRoute"
-                      style={{ width: "100%" }}
-                      value={createAssignedRouteInp}
-                      onChange={(event, newValue) => {
-                        setCreateAssignedRouteInp(newValue);
-                        setCharCountAssigneRoute(
-                          newValue ? newValue.length : 0
-                        );
-                      }}
-                      inputValue={createAssignedRoute}
-                      onInputChange={(event, newInputValue) => {
-                        setCreateAssignedRoute(newInputValue);
-                        setCharCountAssigneRoute(
-                          newInputValue ? newInputValue.length : 0
-                        );
-                      }}
-                      freeSolo={true}
-                      options={SampleRoute.map((option) => option.routeName)}
-                      renderInput={(params) => (
-                        <TextField
-                          {...params}
-                          label="Add an Assigned Route"
-                          margin="dense"
-                          autoFocus={true}
-                          inputProps={{
-                            ...params.inputProps,
-                            type: "search",
-                            "data-testid": "add-Assigned-Route-cr",
-                          }}
-                          required={true}
-                        />
-                      )}
-                    />
-                  )}
-                </FormControl>
+                <TextField
+                  id="outlined-basic"
+                  inputProps={{ "data-testid": "bus-currentLocation-create" }}
+                  label="Current Location"
+                  variant="outlined"
+                  value={createCurrentLocation}
+                  onChange={(e) => setCreateCurrentLocation(e.target.value)}
+                  required={true}
+                />
 
                 <Button
                   data-testid="cancel-create-bus-btn"
@@ -504,11 +451,20 @@ export default function Bus() {
               <form className={classes.rootUpdate} noValidate>
                 <TextField
                   id="outlined-basic"
-                  inputProps={{ "data-testid": "licence-number-update" }}
-                  label="Licence Number"
+                  inputProps={{ "data-testid": "bus-plate-update" }}
+                  label="Bus Plate"
                   variant="outlined"
-                  value={licenceUpdate}
-                  onChange={(e) => setLicenceUpdate(e.target.value)}
+                  value={busPlateUpdate}
+                  onChange={(e) => setBusPlateUpdate(e.target.value)}
+                />
+                <TextField
+                  id="outlined-basic"
+                  inputProps={{ "data-testid": "bus-routeId-update" }}
+                  label="Route ID"
+                  variant="outlined"
+                  value={routIdUpdate}
+                  onChange={(e) => setRoutIdUpdate(e.target.value)}
+                  required={true}
                 />
 
                 <TextField
@@ -519,58 +475,15 @@ export default function Bus() {
                   value={busStatusUpdate}
                   onChange={(e) => setBusStatusUpdate(e.target.value)}
                 />
-
-                <FormControl className={classes.formControl}>
-                  {charCountAssignedRouteupdate < 2 ? (
-                    <TextField
-                      id="standard-basic"
-                      name="assignedRouteUpdate"
-                      label="Add a Assigned Route"
-                      type="text"
-                      style={{ width: "100%" }}
-                      margin="dense"
-                      inputProps={{ "data-testid": "add-Assigned-route" }}
-                      value={assignedRouteUpdate}
-                      onChange={handleChange}
-                      autoFocus={true}
-                    />
-                  ) : (
-                    <Autocomplete
-                      type="text"
-                      name="assignedRouteUpdate"
-                      style={{ width: "100%" }}
-                      value={assignedRouteUpdate}
-                      onChange={(event, newValue) => {
-                        setassignedRouteUpdate(newValue);
-                        setCharCountAssigneRouteupdate(
-                          newValue ? newValue.length : 0
-                        );
-                      }}
-                      inputValue={assignedRouteUpdateInpt}
-                      onInputChange={(event, newInputValue) => {
-                        setassignedRouteUpdateInpt(newInputValue);
-                        setCharCountAssigneRouteupdate(
-                          newInputValue ? newInputValue.length : 0
-                        );
-                      }}
-                      freeSolo={true}
-                      options={SampleRoute.map((option) => option.routeName)}
-                      renderInput={(params) => (
-                        <TextField
-                          {...params}
-                          label="Add a Assigned Route"
-                          margin="dense"
-                          autoFocus={true}
-                          inputProps={{
-                            ...params.inputProps,
-                            type: "search",
-                            "data-testid": "add-Assigned-route",
-                          }}
-                        />
-                      )}
-                    />
-                  )}
-                </FormControl>
+                <TextField
+                  id="outlined-basic"
+                  inputProps={{ "data-testid": "bus-currentLocation-update" }}
+                  label="Current Location"
+                  variant="outlined"
+                  value={currentLocationUpdate}
+                  onChange={(e) => setCurrentLocationUpdate(e.target.value)}
+                  required={true}
+                />
 
                 <br />
 
@@ -617,83 +530,92 @@ export default function Bus() {
           createModalOpen={createOpen}
           setCreateModalOpen={handleCreateOpen}
         />
+        {isLoading ? (
+          <CircularProgress />
+        ) : (
+          <React.Fragment>
+            <TableContainer component={Paper}>
+              <Table className={classes.table} aria-label="simple table">
+                <EnhancedTableHead
+                  hasEmptyCell={false}
+                  classes={classes}
+                  numSelected={selected.length}
+                  order={order}
+                  orderBy={orderBy}
+                  onSelectAllClick={handleSelectAllClick}
+                  onRequestSort={handleRequestSort}
+                  rowCount={rows.length}
+                  headCells={headCells}
+                  indexNumericSort={indexNumericSort}
+                  indexCharSort={indexCharSort}
+                />
 
-        <TableContainer component={Paper}>
-          <Table className={classes.table} aria-label="simple table">
-            <EnhancedTableHead
-              hasEmptyCell={false}
-              classes={classes}
-              numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
-              onRequestSort={handleRequestSort}
-              rowCount={rows.length}
-              headCells={headCells}
-              indexNumericSort={indexNumericSort}
-              indexCharSort={indexCharSort}
-            />
-            <TableBody>
-              {stableSort(rows, getComparator(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => {
-                  const isItemSelected = isSelected(row.ID);
-                  const labelId = `enhanced-table-checkbox-${index}`;
-                  let count = 0;
+                <TableBody>
+                  {stableSort(rows, getComparator(order, orderBy))
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((row, index) => {
+                      const isItemSelected = isSelected(row.id);
+                      const labelId = `enhanced-table-checkbox-${index}`;
+                      let count = 0;
 
-                  return (
-                    <TableRow
-                      hover
-                      onClick={(event) => handleClick(event, row.ID)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={row.ID}
-                      selected={isItemSelected}
-                      data-testid={
-                        index === 0
-                          ? "bus-row"
-                          : index === 1
-                            ? "bus-row2"
-                            : ++count
-                      }
-                    >
-                      <TableCell padding="checkbox">
-                        <Checkbox
-                          checked={isItemSelected}
-                          inputProps={{ "aria-labelledby": labelId }}
-                        />
-                      </TableCell>
-                      <TableCell
-                        component="th"
-                        id={labelId}
-                        scope="row"
-                        padding="none"
-                        align="center"
-                      >
-                        {row.ID}
-                      </TableCell>
-                      <TableCell align="left">{row.Licence_Number}</TableCell>
-                      <TableCell align="left">{row.Assigned_Route}</TableCell>
-                      <TableCell align="left">{row.Status}</TableCell>
+                      return (
+                        <TableRow
+                          hover
+                          onClick={(event) => handleClick(event, row.id)}
+                          role="checkbox"
+                          aria-checked={isItemSelected}
+                          tabIndex={-1}
+                          key={row.id}
+                          selected={isItemSelected}
+                          data-testid={
+                            index === 0
+                              ? "bus-row"
+                              : index === 1
+                                ? "bus-row2"
+                                : ++count
+                          }
+                        >
+                          <TableCell padding="checkbox">
+                            <Checkbox
+                              checked={isItemSelected}
+                              inputProps={{ "aria-labelledby": labelId }}
+                            />
+                          </TableCell>
+                          <TableCell
+                            component="th"
+                            id={labelId}
+                            scope="row"
+                            padding="none"
+                            align="center"
+                          >
+                            {row.id}
+                          </TableCell>
+                          <TableCell align="left">{row.bus_plate}</TableCell>
+                          <TableCell align="left">{row.routId}</TableCell>
+                          <TableCell align="left">{row.bus_status}</TableCell>
+                          <TableCell align="left">
+                            {row.currentLocation}
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  {emptyRows > 0 && (
+                    <TableRow style={{ height: 53 * emptyRows }}>
+                      <TableCell colSpan={6} />
                     </TableRow>
-                  );
-                })}
-              {emptyRows > 0 && (
-                <TableRow style={{ height: 53 * emptyRows }}>
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rows={rows}
-          page={page}
-          rowsPerPage={rowsPerPage}
-          handleChangePage={handleChangePage}
-          handleChangeRowsPerPage={handleChangeRowsPerPage}
-        />
+                  )}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TablePagination
+              rows={rows}
+              page={page}
+              rowsPerPage={rowsPerPage}
+              handleChangePage={handleChangePage}
+              handleChangeRowsPerPage={handleChangeRowsPerPage}
+            />
+          </React.Fragment>
+        )}
       </Paper>
       <ToastContainer />
     </React.Fragment>

@@ -384,28 +384,7 @@ describe("Tests for Users section", () => {
       fireEvent.click(getByTestId("select-all-rows"));
     });
 
-    // it(">>>> can sort rows by characters", () => {
-    //   const { getByTestId } = render(<AdminPage />);
-    //   fireEvent.click(getByTestId("users"));
-    //   expect(getByTestId("sort-by-char")).toBeValid();
-    //   fireEvent.click(getByTestId("sort-by-char"));
-    // });
-    // it(">>>> can sort rows by numbers", () => {
-    //   const { getByTestId } = render(<AdminPage />);
-    //   fireEvent.click(getByTestId("users"));
-    //   expect(getByTestId("sort-by-numbers")).toBeValid();
-    //   fireEvent.click(getByTestId("sort-by-numbers"));
-    // });
-    // it(">>>> can expand a row and collapse it", () => {
-    //   const { getByTestId } = render(<AdminPage />);
-    //   fireEvent.click(getByTestId("users"));
-
-    //   expect(getByTestId("expand-row-btn")).toBeValid();
-    //   fireEvent.click(getByTestId("expand-row-btn"));
-
-    //   expect(getByTestId("expand-row-btn")).toBeValid();
-    //   fireEvent.click(getByTestId("expand-row-btn"));
-    // });
+   
     it(">>>> can sort rows by characters", () => {
       const { getByTestId } = render(<AdminPage />);
       fireEvent.click(getByTestId("users"));
@@ -663,21 +642,26 @@ describe("Tests for buses section", () => {
       expect(getByTestId("open-create-modal")).toBeValid();
       fireEvent.click(getByTestId("open-create-modal"));
 
-      fireEvent.change(getByTestId("bus-licence-create"), {
-        target: { value: "RAA279W" },
+      fireEvent.change(getByTestId("bus-plate-create"), {
+        target: { value: "RAD 345 C" },
       });
-      expect(getByTestId("bus-licence-create").value).toMatch("RAA279W");
+      expect(getByTestId("bus-plate-create").value).toMatch("RAD 345 C");
+
+      fireEvent.change(getByTestId("bus-routeId-create"), {
+        target: { value: 1 },
+      });
+      expect(getByTestId("bus-routeId-create").value).toMatch(1);
 
       fireEvent.change(getByTestId("bus-status-create"), {
         target: { value: "inactive" },
       });
       expect(getByTestId("bus-status-create").value).toMatch("inactive");
 
-      fireEvent.change(getByTestId("add-Assigned-Route-cr"), {
-        target: { value: "Nyabugogo - Kimironko" },
+      fireEvent.change(getByTestId("bus-currentLocation-create"), {
+        target: { value: "39.807222, -70.984722" },
       });
-      expect(getByTestId("add-Assigned-Route-cr").value).toMatch(
-        "Nyabugogo - Kimironko"
+      expect(getByTestId("bus-currentLocation-create").value).toMatch(
+        "39.807222, -70.984722"
       );
 
       fireEvent.click(getByTestId("create-bus-btn"));
@@ -735,21 +719,26 @@ describe("Tests for buses section", () => {
 
       fireEvent.click(getByTestId("open-update-modal"));
 
-      fireEvent.change(getByTestId("licence-number-update"), {
-        target: { value: "RAA279W" },
+      fireEvent.change(getByTestId("bus-plate-update"), {
+        target: { value: "RAD 345 C" },
       });
-      expect(getByTestId("licence-number-update").value).toMatch("RAA279W");
+      expect(getByTestId("bus-plate-update").value).toMatch("RAD 345 C");
+
+      fireEvent.change(getByTestId("bus-routeId-update"), {
+        target: { value: 1 },
+      });
+      expect(getByTestId("bus-routeId-update").value).toMatch(1);
 
       fireEvent.change(getByTestId("bus-status-update"), {
         target: { value: "inactive" },
       });
       expect(getByTestId("bus-status-update").value).toMatch("inactive");
 
-      fireEvent.change(getByTestId("add-Assigned-route"), {
-        target: { value: "Nyabugogo - Kimironko" },
+      fireEvent.change(getByTestId("bus-currentLocation-update"), {
+        target: { value: "39.807222, -70.984722" },
       });
-      expect(getByTestId("add-Assigned-route").value).toMatch(
-        "Nyabugogo - Kimironko"
+      expect(getByTestId("bus-currentLocation-update").value).toMatch(
+        "39.807222, -70.984722"
       );
 
       fireEvent.click(getByTestId("update-bus-btn"));
