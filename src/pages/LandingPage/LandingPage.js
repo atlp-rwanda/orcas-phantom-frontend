@@ -33,8 +33,10 @@ const LandingPage = () => {
       });
     }
   }
-
+  
+  
   useEffect(() => {
+    
     if (state.origin && state.destination) {
       let validInputs = false;
 
@@ -57,12 +59,19 @@ const LandingPage = () => {
         isSubmitted: false
       });
     }
+    handleSwitch();
   }, [state.origin, state.destination]);
 
   const handleSubmit = () => {
     setState({
       ...state,
       isSubmitted: true
+    });
+  }
+  const handleSwitch = () => {
+    setState({
+      ...state,
+      isSwitched: false
     });
   }
 
@@ -73,9 +82,10 @@ const LandingPage = () => {
       
       
         <SearchPanel
-          data={state}
+          data={{...state}}
           handleChange={handleChange}
           handleSubmit={handleSubmit}
+          handleSwitch={handleSwitch}
           setState={setState} />
         <SideMenu data={{...state}} setState={setState} />
       </div>
@@ -103,9 +113,16 @@ const LandingPage = () => {
       <div id="bus-map">
         { 
           state.isSubmitted ?
-            <MapComponent origin={state.coords.origin} destination={state.coords.destination} />
+            <MapComponent 
+              origin={state.coords.origin} 
+              destination={state.coords.destination} 
+              data={state}
+              setState={setState}
+            />
             :
-            <MapComponent />
+            <MapComponent 
+              data={state} 
+              setState={setState} />
         }
       </div>
 

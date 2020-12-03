@@ -481,3 +481,9 @@ body{
       width: 100%;
     }
   }
+
+  /* tilelayer css */
+  .tileLayerSwitcher{
+    margin-right:auto;
+    margin-bottom: 5%;
+  }
