@@ -6,6 +6,7 @@ import App from "../App";
 import MapComponent from "../pages/LandingPage/MapComponent";
 import BusInfo from "pages/LandingPage/BusInfo";
 import { act } from "react-dom/test-utils";
+import ContextWrapper from "../context/AppProvider";
 
 afterEach(cleanup);
 
@@ -27,7 +28,10 @@ describe("Tests if all components are being rendered and work as expected", () =
 
   it(">>>> Map renders correctly", () => {
     const { getByTestId } = render(
-      <MapComponent lat={-1.9470658} lng={30.0915372}></MapComponent>
+      <ContextWrapper>
+        <MapComponent lat={-1.9470658} lng={30.0915372}></MapComponent>
+      </ContextWrapper>
+      
     );
     expect(getByTestId("map-component")).toBeValid();
   });
@@ -61,7 +65,18 @@ describe("Tests if all components are being rendered and work as expected", () =
     fireEvent.click(getByTestId("menu-icon"));
 
     fireEvent.click(getByTestId("navbar-hide-icon"));
+
   });
+
+  it(">>>> Dark and light map tilelayer should be toggled", () => {
+    const { getByTestId } = render(<App />);
+
+    fireEvent.click(getByTestId("switch-btn"));
+    expect(getByTestId("switch-btn")).toBeValid();
+    
+  });
+
+
 
   it(">>>> Search Panel can be toggled", () => {
     const { getByTestId } = render(<App />);
@@ -69,6 +84,7 @@ describe("Tests if all components are being rendered and work as expected", () =
     fireEvent.click(getByTestId("back-btn-search"));
 
     fireEvent.click(getByTestId("search-icon"));
+
   });
 
   it(">>>> Bus info toast is rendered correctly", () => {

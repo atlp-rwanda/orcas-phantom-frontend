@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import directionIcon from "App/assets/images/direction-icon.svg";
 import backButton from "App/assets/images/back-button-homepage.svg";
 import PropTypes from "prop-types";
@@ -17,13 +17,23 @@ import {
   RouteWrapper,
   BusDetails,
 } from "shared/styles/homepageStyles";
+import Switch from "react-switch";
+import { AppContext } from 'context/AppProvider';
 
 const SearchPanel = (props) => {
+  const { state } = useContext(AppContext);
   const toggle = () => {
     props.setState({
       ...props.data,
       isSearchToggled: !props.data.isSearchToggled,
     });
+  };
+  const handleSwitch=()=> {
+    props.setState({
+      ...props.data,
+      isSwitched: !props.data.isSwitched,
+    });
+    
   };
 
   const [orig, setOrig] = useState("");
@@ -72,7 +82,7 @@ const SearchPanel = (props) => {
       props.handleChange(eventObj);
     }
   };
-
+  
   const getWidth = () => window.innerWidth;
 
   const [width, setWidth] = useState(getWidth());
@@ -82,6 +92,8 @@ const SearchPanel = (props) => {
   useEffect(() => {
     window.addEventListener("resize", handleResize);
   }, []);
+
+  
 
   return (
     <div className={`sidebar ${props.data.isSearchToggled ? "" : "sidebarHide"}`}>
@@ -234,6 +246,27 @@ const SearchPanel = (props) => {
             </div>
           ) : null}
         </BusDetails>
+
+
+        <label className="tileLayerSwitcher">
+          <Switch 
+            data-testid="switch-btn"
+            onChange={handleSwitch} 
+            checked={typeof(state.isSwitched)=='undefined'?false :state.isSwitched}
+            onColor="#d9e3e5"
+            offColor="#171717"
+            onHandleColor="#2693e6"
+            handleDiameter={24}
+            uncheckedIcon={false}
+            checkedIcon={false}
+            boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+            height={20}
+            width={48}
+            className="react-switch"
+            id="icon-switch"
+          
+          />
+        </label>
       </div>
     </div>
   );
@@ -246,6 +279,7 @@ SearchPanel.propTypes = {
   onSelect: PropTypes.func,
   onSearch: PropTypes.func,
   setState: PropTypes.func,
+  handleSwitch:PropTypes.func,
 };
 
 export default SearchPanel;
