@@ -228,10 +228,20 @@ export default function Bus() {
 
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, name);
+    } else if (selectedIndex === 0) {
+      newSelected = newSelected.concat(selected.slice(1));
+    } else if (selectedIndex === selected.length - 1) {
+      newSelected = newSelected.concat(selected.slice(0, -1));
+    } else if (selectedIndex > 0) {
+      newSelected = newSelected.concat(
+        selected.slice(0, selectedIndex),
+        selected.slice(selectedIndex + 1)
+      );
     }
 
     setSelected(newSelected);
   };
+
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -246,10 +256,11 @@ export default function Bus() {
 
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
-  const deleteRow = (rowIds) => {
-    setRows([...rows.filter((row) => rowIds.indexOf(row.id) === -1)]);
-    setSelected([]);
-  };
+  
+  // const deleteRow = (rowIds) => {
+  //   setRows([...rows.filter((row) => rowIds.indexOf(row.id) === -1)]);
+  //   setSelected([]);
+  // };
 
   const [createBusPlate, setCreateBusPlate] = useState("");
   const [createRouteID, setCreateRouteID] = useState();
@@ -318,7 +329,7 @@ export default function Bus() {
       if (bus.id === selected[0]) {
         Axios({
           method: "patch",
-          url: "http://localhost:80/buses/"+ bus.id,
+          url: "http://localhost:9000/buses/"+ bus.id,
           headers: {
             Authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiZW1haWwiOiJndW5uZXJAZ21haWwuY29tIiwiaWF0IjoxNjA3MDAwNzUwfQ.LV5sOR3bll3wVT95UDKRdaVWXVUSFet1e29a87dmplQ",
 
@@ -350,6 +361,47 @@ export default function Bus() {
       }
     });
   };
+  // function to delete user(s)
+  const deleteRow = (rowIds) => {
+    if (rowIds.length === 1) {
+      const id = rows
+        .filter((bus) => rowIds.indexOf(bus.id) !== -1)
+        .map((bus) => bus.id)[0];
+      Axios({
+        method: "DELETE",
+        url: `http://localhost:9000/buses/${id}`,
+        headers: {
+          Authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiZW1haWwiOiJndW5uZXJAZ21haWwuY29tIiwiaWF0IjoxNjA3MDAwNzUwfQ.LV5sOR3bll3wVT95UDKRdaVWXVUSFet1e29a87dmplQ",
+        },
+      })
+        .then((res) => {
+          console.log(res);
+          setRows([...rows.filter((row) => rowIds.indexOf(row.id) === -1)]);
+          setSelected([]);
+          toast.success(res.data.message, {
+            position: "top-right",
+            autoClose: 4000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        })
+        .catch((e) => console.log(e));
+    } else {
+      toast.info("Deleting multiple users not yet implemented", {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  };
+
   return (
     <React.Fragment>
       {createOpen && (
