@@ -1,33 +1,26 @@
-import React, { useEffect, useState } from "react";
-import { Map as MapContainer, TileLayer } from "react-leaflet";
-import L, { Icon } from "leaflet";
+import React, { useEffect, useState, useContext } from "react";
+import { MapContainer, TileLayer } from "react-leaflet";
+import L from "leaflet";
 import PropTypes from "prop-types";
+import { AppContext } from "context/AppProvider";
 
-import busStopsData from "./busStopData.json";
-import busStopIcon from "../../App/assets/images/bus-stop6.svg";
+// import busStopsData from "./busStopData.json";
 
-import icon from 'leaflet/dist/images/marker-icon.png';
-import iconShadow from 'leaflet/dist/images/marker-shadow.png';
-import iconRetina from 'leaflet/dist/images/marker-icon-2x.png';
-
-
-
-const stopIcon = new Icon({
-  iconUrl: busStopIcon,
-  iconSize: [60, 70],
-});
+import icon from "leaflet/dist/images/marker-icon.png";
+import iconShadow from "leaflet/dist/images/marker-shadow.png";
+import iconRetina from "leaflet/dist/images/marker-icon-2x.png";
 
 const MapComponent = () => {
-  const onEachFeature=(feature, layer) =>{
-    layer.setIcon(stopIcon);
-    layer.bindPopup(`<p>Name: ${feature.properties.name}</p>`);
-  }
-
+  // const onEachFeature = (feature, layer) => {
+  //   layer.setIcon(stopIcon);
+  //   layer.bindPopup(`<p>Name: ${feature.properties.name}</p>`);
+  // };
+  const { setMapState, busStopMarker } = useContext(AppContext);
   const [map, setMap] = useState();
 
   useEffect(() => {
     if (!map) return;
-
+    setMapState(map);
     delete L.Icon.Default.prototype._getIconUrl;
     let DefaultIcon = L.icon({
       ...L.Icon.Default.prototype.options,
@@ -37,13 +30,15 @@ const MapComponent = () => {
     });
     L.Marker.prototype.options.icon = DefaultIcon;
 
-    const busStopMarker = L.geoJSON(busStopsData, {
-      onEachFeature: onEachFeature,
-    });
-
-    busStopMarker.addTo(map);
-    map.fitBounds(busStopMarker.getBounds());
+    if (busStopMarker) {
+      busStopMarker.addTo(map);
+      map.fitBounds(busStopMarker.getBounds());
+    }
   });
+
+  // L.marker([30.044665829767986, -1.9404906047698116]).addTo(map);
+
+  // console.log(state.sampleLocation)
 
   return (
     <div data-testid="map-component">
@@ -59,7 +54,6 @@ const MapComponent = () => {
       </MapContainer>
     </div>
   );
-
 };
 
 MapComponent.propTypes = {
