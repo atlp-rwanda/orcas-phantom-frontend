@@ -188,6 +188,7 @@ export const SearchWrapper = Styled.div`
 	left: 40%;
 	display: flex;
   align-items: center;
+  flex-direction: column;
   justify-content: space-between;
   padding: 0px 2em;
   @media (max-width: 768px) {
@@ -208,8 +209,13 @@ export const SearchWrapper = Styled.div`
     top: 2em;
     justify-content: center;
     z-index: 9999999;
-
   }
+`;
+
+export const Results = Styled.ul`
+  width:100%;
+  padding-left:50px;
+  cursor: pointer;
 `;
 
 export const SearchInput = Styled.div`

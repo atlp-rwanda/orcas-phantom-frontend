@@ -3,10 +3,8 @@ import ReactDOM from "react-dom";
 import "@testing-library/jest-dom/extend-expect";
 import { render, screen, fireEvent, cleanup } from "@testing-library/react";
 import App from "../App";
-import MapComponent from "../pages/LandingPage/MapComponent";
 import BusInfo from "pages/LandingPage/BusInfo";
 import { act } from "react-dom/test-utils";
-import ContextWrapper from "../context/AppProvider";
 
 afterEach(cleanup);
 
@@ -26,37 +24,9 @@ describe("Tests if all components are being rendered and work as expected", () =
     ReactDOM.unmountComponentAtNode(div);
   });
 
-  it(">>>> Map renders correctly", () => {
-    const { getByTestId } = render(
-      <ContextWrapper>
-        <MapComponent lat={-1.9470658} lng={30.0915372}></MapComponent>
-      </ContextWrapper>
-      
-    );
-    expect(getByTestId("map-component")).toBeValid();
-  });
-
   it(">>>> Should not display bus details without origin and destination set", () => {
     render(<App />);
     expect(screen.getByTestId("bus-info")).toBeEmptyDOMElement();
-  });
-
-  it(">>>> Input boxes are working", () => {
-    const { getByTestId } = render(<App />);
-
-    fireEvent.change(getByTestId("origin"), { target: { value: "Remera 1" } });
-    expect(getByTestId("origin").value).toMatch("Remera 1");
-
-    fireEvent.change(getByTestId("destination"), {
-      target: { value: "Kacyiru" },
-    });
-    expect(getByTestId("destination").value).toMatch("Kacyiru");
-
-    fireEvent.change(getByTestId("origin"), { target: { value: "" } });
-    expect(getByTestId("origin").value).toMatch("");
-
-    fireEvent.change(getByTestId("destination"), { target: { value: "" } });
-    expect(getByTestId("destination").value).toMatch("");
   });
 
   it(">>>> Navigation bar can be toggled", () => {
